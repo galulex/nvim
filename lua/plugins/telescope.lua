@@ -3,7 +3,21 @@ return {
     tag = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-    require("telescope").setup()
+    require("telescope").setup({
+      defaults = {
+        preview = {
+          filesize_limit = 1, -- MB
+        },
+        layout_config = { prompt_position="top" },
+        sorting_strategy = 'ascending',
+        cursor_strategy = 'follow',
+        selection_caret=  ' ',
+        results_title = '💬',
+        multi_icon = '📌',
+        prompt_title = '🔍',
+        winblend = 40,
+      }
+    })
 
     local telescopebuiltin = require("telescope.builtin")
     local function grep_cword()

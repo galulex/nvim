@@ -3,16 +3,16 @@ return {
   config = function()
     require('satellite').setup {
       current_only = false,
-      winblend = 30,
-      zindex = 40,
+      winblend = 40,
+      zindex = 100,
       excluded_filetypes = {
         "cmp_docs",
         "cmp_menu",
-        "noise",
+        "noice",
         "prompt",
         "TelescopePrompt",
       },
-      width = 2,
+      width = 1,
       handlers = {
         cursor = {
           enable = false,
@@ -29,10 +29,10 @@ return {
           -- Highlights:
           -- - SatelliteSearch (default links to Search)
           -- - SatelliteSearchCurrent (default links to SearchCurrent)
-          symbols = { '-', '=', '≡', '⠗', '⠟', '⠿' },
+          symbols = { '-', '=', '≡', '󰕱', '󰉡', '󰉨' },
         },
         diagnostic = {
-          enable = false,
+          enable = true,
           signs = {'-', '=', '≡'},
           min_severity = vim.diagnostic.severity.HINT,
           -- Highlights:

@@ -3,6 +3,16 @@ return {
   event = "VeryLazy",
   config = function()
     require("noice").setup({
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "written",
+          },
+          opts = { skip = true },
+        },
+      },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
@@ -19,15 +29,47 @@ return {
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
+      cmdline = {
+        title = '',
+        format = {
+          cmdline = { pattern = "^:", icon = "", lang = "vim" },
+        },
+      },
       views = {
         cmdline_popup = {
+          position = {
+            row = 5,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = "auto",
+          },
           border = {
             style = "rounded",
             padding = { 1, 2 },
           },
           filter_options = {},
           win_options = {
-            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+          },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = 8,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = 10,
+          },
+          border = {
+            style = "rounded",
+            padding = { 1, 1 },
+          },
+          win_options = {
+            -- winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
           },
         },
         mini = {

@@ -29,13 +29,14 @@ vim.keymap.set({ "n", "i" }, "<D-w>", "<Cmd>q!<CR>")
 vim.keymap.set({ "n", "i" }, "<C-e>", "<Cmd>q!<CR>")
 
 vim.keymap.set("n", "<S-w>", "<Cmd>e %h<CR>")
+vim.keymap.set('n', "<S-w>", ":e %:h<CR>")
 
 vim.keymap.set({ "n", "v" }, "<M-Right>", "e")
 vim.keymap.set({ "n", "v" }, "<M-Left>", "b")
 vim.keymap.set("i", "<M-Right>", "<esc>wi")
 vim.keymap.set("i", "<M-Left>", "<esc>bi")
 
-vim.keymap.set("n", "<D-/>", "<esc>gcc<end>")
+vim.keymap.set("n", "<D-/>", "gcc")
 vim.keymap.set("v", "<D-/>", "gc")
 
 vim.cmd [[
@@ -52,3 +53,6 @@ vim.keymap.set("n", "<D-o>", "<Cmd>Telescope find_files theme=dropdown prompt_pr
 vim.keymap.set("n", "<C-p>", "<Cmd>Telescope find_files theme=dropdown prompt_prefix=🔍<CR>")
 vim.keymap.set("n", "<D-S-o>", "<Cmd>Telescope lsp_references prompt_prefix=<CR>")
 vim.keymap.set("n", "<D-f>", "<Cmd>GrepCword<CR>")
+
+local default_opts = {noremap = true, silent = true}
+vim.api.nvim_set_keymap('v', '<C-f>', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR>', default_opts)

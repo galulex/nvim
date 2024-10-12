@@ -40,31 +40,24 @@ local function iconTime()
   return string.format('%s󰍵%s', h, m)
 end
 
+local function transform(val)
+  return val:gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼'):gsub('0', '󰎡')
+end
+
+local function transform2(val)
+  return val:gsub('1', '󰎦'):gsub('2', '󰎩'):gsub('3', '󰎬'):gsub('4', '󰎮'):gsub('5', '󰎰'):gsub('6', '󰎵'):gsub('7', '󰎸'):gsub('8', '󰎻'):gsub('9', '󰎾'):gsub('0', '󰎣')
+end
+
 local function iconLine()
-  local numbers = {
-    ['1'] = '󰬺',
-    ['2'] = '󰲢',
-    ['3'] = '󰬼',
-    ['4'] = '󰲧',
-    ['5'] = '󰬾',
-    ['6'] = '󰲪',
-    ['7'] = '󰭀',
-    ['8'] = '󰲮',
-    ['9'] = '󰭂',
-    ['0'] = '󰎡',
-  }
   local t = vim.fn.line('$')
-  local total = tostring(vim.fn.line('$')):gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼'):gsub('0', '󰎡')
-  local current = tostring(vim.fn.line('.')):gsub('1', '󰲠'):gsub('2', '󰲢'):gsub('3', '󰲤'):gsub('4', '󰲦'):gsub('5', '󰲨'):gsub('6', '󰲪'):gsub('7', '󰲬'):gsub('8', '󰲮'):gsub('9', '󰲰'):gsub('0', '󰎡')
-  local cur = string.format(('%'..string.len(tostring(t)))..'s', current)
+  local total = transform2(tostring(vim.fn.line('$')))
   local r,c = unpack(vim.api.nvim_win_get_cursor(0))
-  local col = tostring(c + 1):gsub('1', '󰬺'):gsub('2', '󰬻'):gsub('3', '󰬼'):gsub('4', '󰬽'):gsub('5', '󰬾'):gsub('6', '󰬿'):gsub('7', '󰭀'):gsub('8', '󰭁'):gsub('9', '󰭂'):gsub('0', '󰬹')
-  local x = string.format(("%"..string.len(tostring(t))).."d", r)
-  local y = string.format("%3d", c + 1)
-  -- x = x:gsub('1', '󰬺'):gsub('2', '󰬻'):gsub('3', '󰬼'):gsub('4', '󰬽'):gsub('5', '󰬾'):gsub('6', '󰬿'):gsub('7', '󰭀'):gsub('8', '󰭁'):gsub('9', '󰭂'):gsub('0', '󰬹')
-  -- y = y:gsub('1', '󰬺'):gsub('2', '󰬻'):gsub('3', '󰬼'):gsub('4', '󰬽'):gsub('5', '󰬾'):gsub('6', '󰬿'):gsub('7', '󰭀'):gsub('8', '󰭁'):gsub('9', '󰭂'):gsub('0', '󰬹')
+  local x = string.format(("%0"..string.len(tostring(t))).."d", r)
+  local y = string.format("%02d", c + 1)
+  if r > 999 then x = "󰎼󰎼󰎿" end
+  if c > 99 then y = "󰎼󰎿" end
   -- return string.format('%s%s󰖳%s󱐕', y, x, total)
-  return string.format('%s%s%s', y, x, total)
+  return string.format('󰈚%s󰿉%s 󰧭%s', transform(y), transform(x), total)
 end
 
 return {
@@ -123,9 +116,9 @@ return {
         lualine_c = {
           { 'filetype',
             icon_only = true,
-            -- padding = 0,
+            padding = 0,
             color = { bg = 'none' },
-            separator = '',
+            separator = { left = ' ', right = '' },
           },
           { 'filename',
             path = 1,
@@ -137,29 +130,16 @@ return {
               newfile = ' ',  -- Text to show for newly created file before first write
             },
             color = { bg = 'none', gui = 'bold' },
+            -- separator = { left = '<', right = '' },
+      --         -- section_separators = { left = '', right = ''},
           },
         },
         lualine_x = {
-          -- {
-          --   require("noice").api.status.message.get_hl,
-          --   cond = require("noice").api.status.message.has,
-          -- },
-          {
-            require("noice").api.status.command.get,
-            cond = require("noice").api.status.command.has,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            require("noice").api.status.search.get,
-            cond = require("noice").api.status.search.has,
-            color = { fg = "#ff9e64" },
-          },
-          { spacer, padding = 0, color = { bg = 'none' } },
           { 'diagnostics',
             padding = 0,
             -- separator = { left = '', right = ''},
             color = { bg = 'none', gui='italic' },
-            symbols = { error = '', warn = '', info = '', hint = '' },
+            symbols = { error = '', warn = '', info = '', hint = '󱠂' },
           },
           { spacer, padding = 0, color = { bg = 'none' } },
           {
@@ -190,7 +170,14 @@ return {
           -- { iconScroll, padding=0, color = { bg=none, } },
         },
         lualine_y = {
-          { 'fileformat', color = { bg='none', padding=0 } },
+          { 'fileformat',
+            symbols = {
+              unix = '', -- e712
+              dos = '',  -- e70f
+              mac = '',  -- e711
+            },
+            color = { bg='none', padding=0 }
+          },
           -- { 'location', color = { bg='#333333' }, padding = 0 },
           { iconLine,
             padding=1,
@@ -212,6 +199,7 @@ return {
           --},
           {
             iconTime,
+            padding=0,
             -- color = {
             --   gui ='italic',
             --   fg = '#ffffff'
@@ -220,6 +208,7 @@ return {
               return { fg = modeColor(), bg = 'none' }
             end,
           },
+          { spacer, padding = 0, color = { bg='none' } },
         },
       },
       -- tabline = {

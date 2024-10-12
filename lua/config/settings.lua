@@ -36,6 +36,9 @@ o.listchars="trail:•"             -- Show spaces in end of line
 o.autoread = true                 -- Update open files when changed externally
 o.mousescroll="ver:1,hor:0"
 o.undofile = true
+o.showtabline = 2 -- Always show tabline
+o.winblend = 30
+o.laststatus = 3
 
 global.noeb = "vb t_vb="                 -- No beeping
 global.settags = "./tmp/"
