@@ -37,7 +37,7 @@ local function iconTime()
   local m = string.format('%02d', now.min):gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼'):gsub('0', '󰎡')
   local h = string.format('%02d', now.hour):gsub('10', '󰎤󰎡'):gsub('20', '󰎧󰎡'):gsub('0', '󰎡'):gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼')
   -- return string.format('%s %s󰧌%s', hours[now.hour + 1], h, m)
-  return string.format('%s󰍵%s', h, m)
+  return string.format(' %s %s%s%s', '%#LuaLineTimeIcon#' .. hours[3], '%#LuaLineTimeHours#' .. h, '%#LuaLineTimeSplit#' .. '󰍵', '%#LuaLineTimeMinutes#' .. m)
 end
 
 local function transform(val)
@@ -57,7 +57,7 @@ local function iconLine()
   if r > 999 then x = "󰎼󰎼󰎿" end
   if c > 99 then y = "󰎼󰎿" end
   -- return string.format('%s%s󰖳%s󱐕', y, x, total)
-  return string.format('󰈚%s󰿉%s 󰧭%s', transform(y), transform(x), total)
+  return string.format('%s%s %s', '%#LuaLineLinesXIcon#󱗜󰈚%#LuaLineLinesX#' .. transform(y), '%#LuaLineLinesYIcon#󰿉%#LuaLineLinesY#' .. transform(x), '%#LuaLineLinesTotalIcon#󰧭%#LuaLineLinesTotal#' .. total)
 end
 
 return {
@@ -101,13 +101,13 @@ return {
                 preview_title = '📖',
                 prompt_prefix = ' ',
                 git_icons = {
-                  added = "󰐗",
-                  changed = "󰆗",
-                  copied = "",
-                  deleted = "󰅙",
-                  renamed = "",
-                  unmerged = "󰀩",
-                  untracked = "󰎔",
+                  added = "󰐗 ",
+                  changed = "󰆗 ",
+                  copied = " ",
+                  deleted = "󰅙 ",
+                  renamed = " ",
+                  unmerged = "󰀩 ",
+                  untracked = "󰎔 ",
                 }
               })
             end
@@ -139,7 +139,7 @@ return {
             padding = 0,
             -- separator = { left = '', right = ''},
             color = { bg = 'none', gui='italic' },
-            symbols = { error = '', warn = '', info = '', hint = '󱠂' },
+            symbols = { error = '', warn = '', info = '', hint = '󱠂' },
           },
           { spacer, padding = 0, color = { bg = 'none' } },
           {
@@ -156,13 +156,13 @@ return {
                 preview_title = '📖',
                 prompt_prefix = ' ',
                 git_icons = {
-                  added = "󰐗",
-                  changed = "󰆗",
-                  copied = "",
-                  deleted = "󰅙",
-                  renamed = "",
-                  unmerged = "󰀩",
-                  untracked = "󰎔",
+                  added = "󰐗 ",
+                  changed = "󰆗 " ,
+                  copied = " ",
+                  deleted = "󰅙 ",
+                  renamed = " ",
+                  unmerged = "󰀩 ",
+                  untracked = "󰎔 ",
                 }
               })
             end
@@ -176,16 +176,16 @@ return {
               dos = '',  -- e70f
               mac = '',  -- e711
             },
-            color = { bg='none', padding=0 }
+            color = { bg='none', padding=0, fg='#ff7a45' }
           },
           -- { 'location', color = { bg='#333333' }, padding = 0 },
+          { fileProgress, padding=0, color = { bg='none', fg='#ff843d' } },
           { iconLine,
-            padding=1,
+            padding=0,
             color = function(section)
               return { fg = modeColor(), bg = 'none' }
             end,
           },
-          { fileProgress, padding=0, color = { bg='none' } },
           -- { spacer, padding = 0, color = { bg='none' } },
         },
         lualine_z = {

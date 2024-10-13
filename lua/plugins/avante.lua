@@ -6,6 +6,13 @@ return {
   opts = {
     provider = "openai", -- Recommend using Claude
     auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation
+    behaviour = {
+      auto_suggestions = true, -- Experimental stage
+      auto_set_highlight_group = true,
+      auto_set_keymaps = true,
+      auto_apply_diff_after_generation = false,
+      support_paste_from_clipboard = false,
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
