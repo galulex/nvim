@@ -36,7 +36,7 @@ vim.keymap.set({ "n", "v" }, "<M-Left>", "b")
 vim.keymap.set("i", "<M-Right>", "<esc>wi")
 vim.keymap.set("i", "<M-Left>", "<esc>bi")
 
-vim.keymap.set("n", "<D-/>", "gcc")
+vim.keymap.set("n", "<D-/>", "<Esc>gcc<End>")
 vim.keymap.set("v", "<D-/>", "gc")
 
 vim.cmd [[

@@ -57,7 +57,7 @@ local function iconLine()
   if r > 999 then x = "󰎼󰎼󰎿" end
   if c > 99 then y = "󰎼󰎿" end
   -- return string.format('%s%s󰖳%s󱐕', y, x, total)
-  return string.format('%s%s %s', '%#LuaLineLinesXIcon#󱗜󰈚%#LuaLineLinesX#' .. transform(y), '%#LuaLineLinesYIcon#󰿉%#LuaLineLinesY#' .. transform(x), '%#LuaLineLinesTotalIcon#󰧭%#LuaLineLinesTotal#' .. total)
+  return string.format('%s%s %s', '%#LuaLineLinesXPreIcon#󰿉%#LuaLineLinesXIcon#󰈚%#LuaLineLinesX#' .. transform(y), '%#LuaLineLinesYIcon#󰿉%#LuaLineLinesY#' .. transform(x), '%#LuaLineLinesTotalIcon#󰧭%#LuaLineLinesTotal#' .. total)
 end
 
 return {
@@ -176,10 +176,10 @@ return {
               dos = '',  -- e70f
               mac = '',  -- e711
             },
-            color = { bg='none', padding=0, fg='#ff7a45' }
+            color = { bg='none', padding=0, fg='#ff704e' }
           },
           -- { 'location', color = { bg='#333333' }, padding = 0 },
-          { fileProgress, padding=0, color = { bg='none', fg='#ff843d' } },
+          { fileProgress, padding=0, color = { bg='none', fg='#ff7a45' } },
           { iconLine,
             padding=0,
             color = function(section)

@@ -44,7 +44,7 @@ local function title(bufnr)
   end
 
   if file == '' then
-    return ' 󰬕󰬌󰬞'
+    return '  󰬕󰬌󰬞 '
   end
   return fn.pathshorten(fn.fnamemodify(file, ':p:~:t'))
 end
@@ -136,7 +136,7 @@ local function get_diags(buflist, hl_base)
     end
   end
 
-  return table.concat(diags, ' ')
+  return table.concat(diags, '')
 end
 
 local function brand()
@@ -161,10 +161,10 @@ local function cell(index, selected)
     string.format('%s%%%dT %s%s%s', common, index, devicon(bufnr, hl), title(bufnr), flags(bufnr))
 
   if #bufnrs > 1 then
-    ret = string.format('%s%s(%d) ', ret, common, #bufnrs)
+    ret = string.format('%s%s(%d)', ret, common, #bufnrs)
   end
 
-  return separator(index, '') .. ret .. get_diags(bufnrs, hl) .. '%T ' .. separator(index, '') .. separator(index, ' ')
+  return separator(index, '') .. ret .. get_diags(bufnrs, hl) .. '%T' .. separator(index, '') .. separator(index, ' ')
 end
   -- section_separators = { left = '', right = ''},
 

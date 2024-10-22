@@ -20,10 +20,10 @@ return {
     hi DiagnosticInfoTablineSel guibg=NONE
     hi DiagnosticHintTablineSel guibg=NONE
 
-    hi DiagnosticWarnTablineFillTab guibg=#ABB2BF
-    hi DiagnosticErrorTablineFillTab guibg=#ABB2BF
-    hi DiagnosticInfoTablineFillTab guibg=#ABB2BF
-    hi DiagnosticHintTablineFillTab guibg=#ABB2BF
+    hi DiagnosticWarnTablineFillTab guibg=#ABB2BF guifg=black
+    hi DiagnosticErrorTablineFillTab guibg=#ABB2BF guifg=black
+    hi DiagnosticInfoTablineFillTab guibg=#ABB2BF guifg=black
+    hi DiagnosticHintTablineFillTab guibg=#ABB2BF guifg=black
 
     hi SatelliteSearch guifg=white
     hi SatelliteSearchCurrent guifg=yellow
@@ -47,6 +47,7 @@ return {
     hi LuaLineLinesYIcon guifg=#efa72f
     hi LuaLineLinesX guifg=#f89b31
     hi LuaLineLinesXIcon guifg=#ff9036
+    hi LuaLineLinesXPreIcon guifg=#ff843d
     ]]
 
     local colors = {
