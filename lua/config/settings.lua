@@ -1,7 +1,7 @@
 local global = vim.g
 local o = vim.opt
 
-o.guifont = "Menlo:h16"
+o.guifont = "Menlo:h17"
 o.pumblend = 15
 -- o.colo = "onedark"  -- Theme
 o.number = true -- Print the line number in front of each line
@@ -34,17 +34,20 @@ o.shortmess="filmnrxtTI"          -- Disable intro message
 o.list = true
 o.listchars="trail:•"             -- Show spaces in end of line
 o.autoread = true                 -- Update open files when changed externally
-o.mousescroll="ver:1,hor:0"
+o.mousescroll="ver:1,hor:0"       -- Disables horizontal scroll
 o.undofile = true
 o.showtabline = 2 -- Always show tabline
 o.winblend = 30
 o.laststatus = 3
+o.updatetime = 1000 -- Sets update time to 1 second
 
 global.noeb = "vb t_vb="                 -- No beeping
 global.settags = "./tmp/"
 global.nobackup = true                     -- Don't make a backup before overwriting a file.
 global.nowritebackup = true                -- And again.
 global.noswapfile = true                   -- Disable swp files
+
+vim.diagnostic.config({ virtual_text = false }) -- Disables Diagnostic inline text
 
 if vim.g.neovide then
   global.neovide_input_use_logo=true

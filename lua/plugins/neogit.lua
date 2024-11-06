@@ -73,7 +73,7 @@ return {
       -- Disable line numbers and relative line numbers
       disable_line_numbers = true,
       -- The time after which an output console is shown for slow running commands
-      console_timeout = 2000,
+      console_timeout = 100,
       -- Automatically show console if a command takes more than console_timeout milliseconds
       auto_show_console = true,
       -- Automatically close the console if the process exits with a 0 (success) status
@@ -85,20 +85,20 @@ return {
         HEAD_folded = false,
         mode_padding = 3,
         mode_text = {
-          M = "modified",
-          N = "new file",
-          A = "added",
-          D = "deleted",
-          C = "copied",
-          U = "updated",
-          R = "renamed",
-          DD = "unmerged",
-          AU = "unmerged",
-          UD = "unmerged",
-          UA = "unmerged",
-          DU = "unmerged",
-          AA = "unmerged",
-          UU = "unmerged",
+          M = "󰆗 ",
+          N = "󰎔 ",
+          A = "󰐗 ",
+          D = "󰅙 ",
+          C = " ",
+          U = "󰆗 ",
+          R = "󱆭 ",
+          DD = "󰀩 ",
+          AU = "󰀩 ",
+          UD = "󰀩 ",
+          UA = "󰀩 ",
+          DU = "󰀩 ",
+          AA = "󰀩 ",
+          UU = "󰀩 ",
           ["?"] = "",
         },
       },
@@ -145,8 +145,8 @@ return {
       signs = {
         -- { CLOSED, OPENED }
         hunk = { "", "" },
-        item = { ">", "v" },
-        section = { ">", "v" },
+        item = { "", "" },
+        section = { "󰧚", "󰧖" },
       },
       -- Each Integration is auto-detected through plugin presence, however, it can be disabled by setting to `false`
       integrations = {

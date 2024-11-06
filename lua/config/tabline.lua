@@ -77,6 +77,9 @@ local function devicon(bufnr, hl_base)
   if filetype == 'fugitive' then
     --- @type string, string
     icon, devhl = devicons.get_icon('git')
+  elseif filetype == 'Neogit' then
+    --- @type string, string
+    icon, devhl = devicons.get_icon('git')
   elseif filetype == 'vimwiki' then
     --- @type string, string
     icon, devhl = devicons.get_icon('markdown')
