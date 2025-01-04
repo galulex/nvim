@@ -48,6 +48,7 @@ return { "onsails/lspkind.nvim",
         Event = "",
         Operator = "󰆕",
         TypeParameter = "",
+        Copilot = "",
       },
     })
   end,

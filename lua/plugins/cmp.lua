@@ -5,6 +5,7 @@ return {
     "hrsh7th/cmp-path",
     "ray-x/cmp-treesitter",
     "lukas-reineke/cmp-rg",
+    "zbirenbaum/copilot-cmp",
     {
       "L3MON4D3/LuaSnip",
     },
@@ -15,8 +16,15 @@ return {
     local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")
+    require("copilot_cmp").setup()
 
     require("luasnip.loaders.from_vscode").lazy_load()
+
+    local has_words_before = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    end
 
     cmp.setup({
       window = {
@@ -72,8 +80,16 @@ return {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         }),
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+          if cmp.visible() and has_words_before() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            fallback()
+          end
+        end),
       }),
       sources = cmp.config.sources({
+        { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
