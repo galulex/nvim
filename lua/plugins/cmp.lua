@@ -6,11 +6,8 @@ return {
     "ray-x/cmp-treesitter",
     "lukas-reineke/cmp-rg",
     "zbirenbaum/copilot-cmp",
-    {
-      "L3MON4D3/LuaSnip",
-    },
-    "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
+    "saadparwaiz1/cmp_luasnip",
   },
   config = function()
     local cmp = require("cmp")
@@ -19,6 +16,7 @@ return {
     require("copilot_cmp").setup()
 
     require("luasnip.loaders.from_vscode").lazy_load()
+    require'luasnip'.filetype_extend('ruby', { 'rails' })
 
     local has_words_before = function()
       if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -30,19 +28,18 @@ return {
       window = {
         completion = {
           border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-          winhighlight = 'Normal:CmpNormal',
+          winhighlight = 'Normal:CmpNormal,CursorLine:PmenuSel,Search:None',
 
           scrolloff = 0,
           col_offset = 0,
           side_padding = 0,
-          scrollbar = '│',
+          scrollbar = false,
         },
         documentation = {
           -- max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
           -- max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
           border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-          winhighlight = 'Normal:CmpNormal',
-          scrollbar = '│',
+          winhighlight = 'Normal:CmpNormal,CursorLine:PmenuSel,Search:None',
         },
       },
       formatting = {
@@ -90,8 +87,8 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "copilot" },
-        { name = "nvim_lsp" },
         { name = "luasnip" },
+        { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
         { name = 'treesitter' },
@@ -99,12 +96,9 @@ return {
       }),
     })
 
-    vim.cmd([[
-      set completeopt=menuone,noinsert,noselect
-      highlight! default link CmpItemKind CmpItemMenuDefault
-      ]])
-
-    require('luasnip.loaders.from_vscode').lazy_load()
-    require'luasnip'.filetype_extend('ruby', { 'rails' })
+    -- vim.cmd([[
+    --   set completeopt=menuone,noinsert,noselect
+    --   highlight! default link CmpItemKind CmpItemMenuDefault
+    --   ]])
   end,
 }

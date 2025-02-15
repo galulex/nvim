@@ -29,14 +29,14 @@ return {
 
     local telescopebuiltin = require("telescope.builtin")
     local function grep_cword()
-      return telescopebuiltin.live_grep({ default_text = vim.fn.expand("<cword>") })
+      return telescopebuiltin.live_grep({ default_text = vim.fn.expand("<cword>"), only_sort_text = true })
     end
     local function grep_visual()
       local vstart = vim.fn.getpos("'<")
       local vend = vim.fn.getpos("'>")
       local line_start = vstart[2]
       local line_end = vend[2]
-      return telescopebuiltin.live_grep({ default_text = "test" })
+      return telescopebuiltin.live_grep({ default_text = vim.fn.getline(line_start,line_end), only_sort_text = true })
     end
     vim.api.nvim_create_user_command("GrepCword", grep_cword, {})
     vim.api.nvim_create_user_command("GrepVisual", grep_visual, {})

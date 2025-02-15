@@ -83,3 +83,5 @@ if vim.g.neovide then
   global.netrw_banner = 0
   global.netrw_winsize = 25
 end
+
+-- vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = [[%s/\s\+$//e]] })

@@ -30,8 +30,8 @@ return {
 
     hi NoiceCmdlinePopup guibg=black blend=30
 
-    hi Pmenu guibg=#161b22 gui=bold
-    hi PmenuSel guibg=#98C379 gui=bold
+    " hi Pmenu guibg=#161b22
+    hi PmenuSel guibg=#30363d gui=bold
     hi PmenuSbar guibg=#161b22
     hi PmenuThumb guibg=#30363d
     hi CursorLineNr guifg=#98c279
