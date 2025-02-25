@@ -85,3 +85,13 @@ if vim.g.neovide then
 end
 
 -- vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = [[%s/\s\+$//e]] })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.slim" },
+  command = "set ft=slim",
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.yml" },
+  command = "set ft=yaml",
+})

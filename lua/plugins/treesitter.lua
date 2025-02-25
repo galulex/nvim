@@ -7,6 +7,15 @@ return {
   },
   config = function()
     local treesitter = require("nvim-treesitter.configs")
+    -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+    -- parser_config.slim = {
+    --   install_info = {
+    --     url = "https://github.com/kolen/tree-sitter-slim",
+    --     files = {"src/parser.c", "src/scanner.c"},
+    --     requires_generate_from_grammar = false,
+    --   },
+    --   filetype = "slim",
+    -- }
 
     treesitter.setup({
       sync_install = true,
@@ -53,7 +62,7 @@ return {
         enable = true,
         disable = { "html" },
         extended_mode = false,
-        max_file_lines = nil,
+        max_file_lines = 1000,
       },
       context_commentstring = {
         enable = true,

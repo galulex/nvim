@@ -49,6 +49,7 @@ return { "onsails/lspkind.nvim",
         Operator = "󰆕",
         TypeParameter = "",
         Copilot = "",
+        OpenAI = "󱚝",
       },
     })
   end,
