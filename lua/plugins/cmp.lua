@@ -8,12 +8,19 @@ return {
     "zbirenbaum/copilot-cmp",
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
+    "tzachar/cmp-ai",
   },
   config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")
-    require("copilot_cmp").setup()
+    -- require("copilot_cmp").setup()
+
+    -- create an autocommand which closes cmp when ai completions are displayed
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "NeoCodeiumCompletionDisplayed",
+      callback = function() require("cmp").abort() end
+    })
 
     require("luasnip.loaders.from_vscode").lazy_load()
     require'luasnip'.filetype_extend('ruby', { 'rails' })
@@ -73,10 +80,7 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }),
+        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
           if cmp.visible() and has_words_before() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -85,20 +89,17 @@ return {
           end
         end),
       }),
+      performance = { fetching_timeout = 2000 },
       sources = cmp.config.sources({
-        { name = "copilot" },
+        -- { name = "copilot" },
+        { name = 'cmp_ai' },
         { name = "luasnip" },
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
-        { name = 'treesitter' },
+        -- { name = 'treesitter' }, Neovim freeze susspect
         { name = "rg", keyword_length = 3 },
       }),
     })
-
-    -- vim.cmd([[
-    --   set completeopt=menuone,noinsert,noselect
-    --   highlight! default link CmpItemKind CmpItemMenuDefault
-    --   ]])
-  end,
+  end
 }

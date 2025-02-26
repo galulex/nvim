@@ -24,7 +24,7 @@ return {
       modules = {},
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = true,
       },
       indent = { enable = true },
       autotag = {
@@ -45,8 +45,6 @@ return {
         "vim",
         "dockerfile",
         "gitignore",
-        "c",
-        "rust",
         "ruby",
       },
       incremental_selection = {
