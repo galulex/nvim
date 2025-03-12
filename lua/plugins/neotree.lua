@@ -12,10 +12,10 @@ return {
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵 ", texthl = "DiagnosticSignHint" })
 
     require("neo-tree").setup({
-      close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+      close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "rounded",
       enable_git_status = true,
       enable_diagnostics = true,
@@ -80,16 +80,16 @@ return {
         git_status = {
           symbols = {
             -- Change type
-            added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
-            deleted = "✖", -- this can only be used in the git_status source
-            renamed = "󰁕", -- this can only be used in the git_status source
+            added = "󰐗 ", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified = "󰆗 ", -- or "", but this is redundant info if you use git_status_colors on the name
+            deleted = "󰅙 ", -- this can only be used in the git_status source
+            renamed = "󱆭 ", -- this can only be used in the git_status source
             -- Status type
-            untracked = "",
+            untracked = "󰎔 ",
             ignored = "",
-            unstaged = "󰄱",
-            staged = "",
-            conflict = "",
+            unstaged = "",
+            staged = "",
+            conflict = "󰊢",
           },
         },
         -- If you don't want to use these columns, you can set `enabled = false` for each of them individually

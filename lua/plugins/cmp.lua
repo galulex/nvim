@@ -8,7 +8,6 @@ return {
     "zbirenbaum/copilot-cmp",
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
-    "tzachar/cmp-ai",
   },
   config = function()
     local cmp = require("cmp")
@@ -80,7 +79,7 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
           if cmp.visible() and has_words_before() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -92,7 +91,7 @@ return {
       performance = { fetching_timeout = 2000 },
       sources = cmp.config.sources({
         -- { name = "copilot" },
-        { name = 'cmp_ai' },
+        -- { name = 'cmp_ai' },
         { name = "luasnip" },
         { name = "nvim_lsp" },
         { name = "buffer" },

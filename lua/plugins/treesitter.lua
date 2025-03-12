@@ -4,32 +4,20 @@ return {
   build = ":TSUpdate",
   dependencies = {
     "windwp/nvim-ts-autotag",
+    "RRethy/nvim-treesitter-endwise",
   },
   config = function()
     local treesitter = require("nvim-treesitter.configs")
-    -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-    -- parser_config.slim = {
-    --   install_info = {
-    --     url = "https://github.com/kolen/tree-sitter-slim",
-    --     files = {"src/parser.c", "src/scanner.c"},
-    --     requires_generate_from_grammar = false,
-    --   },
-    --   filetype = "slim",
-    -- }
 
     treesitter.setup({
       sync_install = true,
       ignore_install = {""},
       auto_install = true,
       modules = {},
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = true,
-      },
+      highlight = { enable = true, additional_vim_regex_highlighting = true, },
       indent = { enable = true },
-      autotag = {
-        enable = true,
-      },
+      autotag = { enable = true, },
+      endwise = { enable = true },
       ensure_installed = {
         "json",
         "javascript",

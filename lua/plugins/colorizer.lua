@@ -1,12 +1,15 @@
 return {
   "lewis6991/nvim-colorizer.lua",
   config = function()
-    require("colorizer").setup(
-      { "css", "javascript", "lua", "vim", "toml", "svelte", "typescript", "html" },
+    require("colorizer").setup({
+      "css";
+      "javascript";
+      "html";
+    },
       {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
-        names = false, -- "Name" codes like Blue oe blue
+        names = true, -- "Name" codes like Blue oe blue
         RRGGBBAA = true, -- #RRGGBBAA hex codes
         rgb_fn = true, -- CSS rgb() and rgba() functions
         hsl_fn = true, -- CSS hsl() and hsla() functions
