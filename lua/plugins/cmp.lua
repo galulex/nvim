@@ -91,7 +91,7 @@ return {
       performance = { fetching_timeout = 2000 },
       sources = cmp.config.sources({
         -- { name = "copilot" },
-        -- { name = 'cmp_ai' },
+        { name = 'avante' },
         { name = "luasnip" },
         { name = "nvim_lsp" },
         { name = "buffer" },

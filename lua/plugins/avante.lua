@@ -4,20 +4,23 @@ return {
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   opts = {
-    provider = "openai", -- Recommend using Claude
-    auto_suggestions_provider = "openai", -- Since auto-suggestions are a high-frequency operation
+    provider = "claude", -- Recommend using Claude
+    auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation
     behaviour = {
       auto_suggestions = true, -- Experimental stage
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
+      enable_cursor_planning_mode = true, -- enable cursor planning mode!
     },
     suggestion = {
-      accept = "<M-l>",
+      accept = "<Tab>",
       next = "<M-]>",
       prev = "<M-[>",
       dismiss = "<C-]>",
+      debounce = 200,
+      throttle = 100,
     },
     hints = { enabled = true },
   },
