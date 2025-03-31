@@ -14,7 +14,7 @@ return {
       ignore_install = {""},
       auto_install = true,
       modules = {},
-      highlight = { enable = true, additional_vim_regex_highlighting = true, },
+      highlight = { enable = true, additional_vim_regex_highlighting = false, },
       indent = { enable = true },
       autotag = { enable = true, },
       endwise = { enable = true },

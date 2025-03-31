@@ -5,7 +5,8 @@ local filetypes = {
   NeogitStatus = '󰬎󰬐󰬛 ',
   fugitive = '󰬎󰬐󰬛 ',
   TelescopePrompt = '󰭎 ',
-  netrw = ' '
+  netrw = ' ',
+  NeoTree = ' ',
 }
 
 --- @param name string

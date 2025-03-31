@@ -13,7 +13,7 @@ return {
     local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")
-    -- require("copilot_cmp").setup()
+    require("copilot_cmp").setup()
 
     -- create an autocommand which closes cmp when ai completions are displayed
     vim.api.nvim_create_autocmd("User", {
@@ -90,8 +90,8 @@ return {
       }),
       performance = { fetching_timeout = 2000 },
       sources = cmp.config.sources({
-        -- { name = "copilot" },
-        { name = 'avante' },
+        { name = "copilot" },
+        -- { name = 'avante' },
         { name = "luasnip" },
         { name = "nvim_lsp" },
         { name = "buffer" },
