@@ -40,9 +40,11 @@ o.showtabline = 2 -- Always show tabline
 o.winblend = 30
 o.laststatus = 3
 o.updatetime = 1000 -- Sets update time to 1 second
+o.tags = "./config/nvim/"
 
 global.noeb = "vb t_vb="                 -- No beeping
-global.settags = "./tmp/"
+global.settags = "./config/nvim/"
+
 global.nobackup = true                     -- Don't make a backup before overwriting a file.
 global.nowritebackup = true                -- And again.
 global.noswapfile = true                   -- Disable swp files

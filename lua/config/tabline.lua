@@ -9,6 +9,10 @@ local filetypes = {
   NeoTree = ' ',
 }
 
+local function transform(val)
+  return val:gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼'):gsub('0', '󰎡')
+end
+
 --- @param name string
 --- @return {bg?:integer, fg?:integer}
 local function get_hl(name)
@@ -45,7 +49,7 @@ local function title(bufnr)
   end
 
   if file == '' then
-    return '  󰬕󰬌󰬞 '
+    return ' 󰬕󰬌󰬞 '
   end
   return fn.pathshorten(fn.fnamemodify(file, ':p:~:t'))
 end
@@ -56,7 +60,7 @@ local function flags(bufnr)
     ret[#ret + 1] = ''
   end
   if not vim.bo[bufnr].modifiable then
-    ret[#ret + 1] = ' '
+    ret[#ret + 1] = ''
   end
   return table.concat(ret)
 end
@@ -162,10 +166,10 @@ local function cell(index, selected)
   local hl = not selected and 'TabLineFillTab' or 'TabLineSel'
   local common = '%#' .. hl .. '#'
   local ret =
-    string.format('%s%%%dT %s%s%s', common, index, devicon(bufnr, hl), title(bufnr), flags(bufnr))
+    string.format('%s%%%dT%s%s%s', common, index, devicon(bufnr, hl), title(bufnr), flags(bufnr))
 
   if #bufnrs > 1 then
-    ret = string.format('%s%s(%d)', ret, common, #bufnrs)
+    ret = string.format('%s%s%s ', ret, common, transform(tostring(#bufnrs)))
   end
 
   return separator(index, '') .. ret .. get_diags(bufnrs, hl) .. '%T' .. separator(index, '') .. separator(index, ' ')

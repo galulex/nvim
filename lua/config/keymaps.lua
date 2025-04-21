@@ -48,7 +48,7 @@ map gJ :Ejavascript<CR>
 map gS :Estylesheet<CR>
 ]]
 
-vim.keymap.set("n", "<S-Tab>", "<Cmd>Telescope buffers theme=dropdown prompt_title= prompt_prefix= preview_title=🕒<CR>")
+vim.keymap.set("n", "<S-Tab>", "<Cmd>Telescope oldfiles theme=dropdown prompt_title= prompt_prefix= preview_title=🕒<CR>")
 vim.keymap.set("n", "<D-o>", "<Cmd>Telescope find_files theme=dropdown prompt_prefix=🔍<CR>")
 vim.keymap.set("n", "<C-p>", "<Cmd>Telescope find_files theme=dropdown prompt_prefix=🔍<CR>")
 vim.keymap.set("n", "<D-S-o>", "<Cmd>Telescope lsp_references prompt_prefix=<CR>")

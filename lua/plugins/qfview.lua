@@ -11,10 +11,10 @@ return {
       },
 
       show_multiple_lines = false,
-      max_filename_length = 50,
+      max_filename_length = 120,
 
       -- Prefix to use for truncated filenames.
-      filename_truncate_prefix = '󰛁 ',
+      filename_truncate_prefix = '󰛁',
     })
   end,
 }
