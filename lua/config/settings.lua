@@ -53,7 +53,10 @@ vim.diagnostic.config({ virtual_text = false }) -- Disables Diagnostic inline te
 
 if vim.g.neovide then
   global.neovide_input_use_logo=true
-  global.neovide_transparency = 0.8
+  global.neovide_opacity = 1
+  global.neovide_normal_opacity = 0.8
+  global.neovide_window_blurred = false
+  -- global.neovide_transparency = 0.8
   global.neovide_floating_blur_amount_x = 2.0
   global.neovide_floating_blur_amount_y = 2.0
   global.neovide_scroll_animation_length = 0.2
