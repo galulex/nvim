@@ -51,9 +51,9 @@ return {
     ]]
 
     local colors = {
-      "#98c279", "#a0c279", "#a8c279", "#b0c27a", "#b8c17a", 
-      "#c0c07a", "#c8bf7a", "#cfbe7a", "#d6bd7b", "#ddbc7b", 
-      "#e3bb7b", "#e5ba7a", "#e5b97a", "#e5b77a", "#e5b679", 
+      "#98c279", "#a0c279", "#a8c279", "#b0c27a", "#b8c17a",
+      "#c0c07a", "#c8bf7a", "#cfbe7a", "#d6bd7b", "#ddbc7b",
+      "#e3bb7b", "#e5ba7a", "#e5b97a", "#e5b77a", "#e5b679",
       "#e5b479", "#e5b278", "#e5b077", "#e5ae76", "#e5c07b"
     }
 

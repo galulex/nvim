@@ -9,6 +9,15 @@ return {
   config = function()
     local treesitter = require("nvim-treesitter.configs")
 
+    require('nvim-ts-autotag').setup({
+      opts = {
+        -- Defaults
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
+      }
+    })
+
     treesitter.setup({
       sync_install = true,
       ignore_install = {""},
@@ -16,7 +25,6 @@ return {
       modules = {},
       highlight = { enable = true, additional_vim_regex_highlighting = false, },
       indent = { enable = true },
-      autotag = { enable = true, },
       endwise = { enable = true },
       ensure_installed = {
         "json",
@@ -25,6 +33,7 @@ return {
         "tsx",
         "yaml",
         "html",
+        "slim",
         "css",
         "markdown",
         "markdown_inline",

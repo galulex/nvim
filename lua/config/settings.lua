@@ -40,7 +40,7 @@ o.showtabline = 2 -- Always show tabline
 o.winblend = 30
 o.laststatus = 3
 o.updatetime = 1000 -- Sets update time to 1 second
-o.tags = "./config/nvim/"
+o.tags = "./tmp/tags"
 
 global.noeb = "vb t_vb="                 -- No beeping
 global.settags = "./config/nvim/"
@@ -49,7 +49,7 @@ global.nobackup = true                     -- Don't make a backup before overwri
 global.nowritebackup = true                -- And again.
 global.noswapfile = true                   -- Disable swp files
 
-vim.diagnostic.config({ virtual_text = false }) -- Disables Diagnostic inline text
+-- vim.diagnostic.config({ virtual_text = false }) -- Disables Diagnostic inline text
 
 if vim.g.neovide then
   global.neovide_input_use_logo=true

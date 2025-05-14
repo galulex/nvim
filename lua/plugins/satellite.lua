@@ -13,7 +13,7 @@ return {
         "prompt",
         "TelescopePrompt",
       },
-      width = 1,
+      width = 2,
       handlers = {
         cursor = {
           enable = false,
@@ -30,7 +30,7 @@ return {
           -- Highlights:
           -- - SatelliteSearch (default links to Search)
           -- - SatelliteSearchCurrent (default links to SearchCurrent)
-          symbols = { '-', '=', '≡', '󰕱', '󰉡', '󰉨' },
+          symbols = { '-', '=', '≡', '󰕱', '󰉡', '󰉡' },
         },
         diagnostic = {
           enable = true,
