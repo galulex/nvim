@@ -10,7 +10,20 @@ local filetypes = {
 }
 
 local function transform(val)
-  return val:gsub('1', '󰎤'):gsub('2', '󰎧'):gsub('3', '󰎪'):gsub('4', '󰎭'):gsub('5', '󰎱'):gsub('6', '󰎳'):gsub('7', '󰎶'):gsub('8', '󰎹'):gsub('9', '󰎼'):gsub('0', '󰎡')
+  local replacements = {
+    ['0'] = '󰎡',
+    ['1'] = '󰎤',
+    ['2'] = '󰎧',
+    ['3'] = '󰎪',
+    ['4'] = '󰎭',
+    ['5'] = '󰎱',
+    ['6'] = '󰎳',
+    ['7'] = '󰎶',
+    ['8'] = '󰎹',
+    ['9'] = '󰎼',
+  }
+
+  return val:gsub('%d', replacements)
 end
 
 --- @param name string
@@ -59,9 +72,9 @@ local function flags(bufnr)
   if vim.bo[bufnr].modified then
     ret[#ret + 1] = ''
   end
-  if not vim.bo[bufnr].modifiable then
-    ret[#ret + 1] = ''
-  end
+  -- if not vim.bo[bufnr].modifiable then
+  --   ret[#ret + 1] = ''
+  -- end
   return table.concat(ret)
 end
 

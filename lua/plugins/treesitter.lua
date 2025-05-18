@@ -5,6 +5,7 @@ return {
   dependencies = {
     "windwp/nvim-ts-autotag",
     "RRethy/nvim-treesitter-endwise",
+    "nvim-treesitter/nvim-treesitter-context",
   },
   config = function()
     local treesitter = require("nvim-treesitter.configs")
@@ -64,5 +65,8 @@ return {
         enable_autocmd = false,
       },
     })
+
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
   end,
 }
