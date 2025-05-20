@@ -2,6 +2,15 @@ return {
   "olimorris/onedarkpro.nvim",
   priority = 1000,
   config = function()
+    require("onedarkpro").setup({
+      options = {
+        transparency = true, -- Use a transparent background?
+        lualine_transparency = true, -- Center bar transparency?
+      },
+      -- highlights = {
+      --   lualine_c_normal = { fg = "#abb2bf", bg = "NONE" },
+      -- },
+    })
     vim.cmd("colorscheme onedark_dark")
 
     vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { ctermfg = 8 })
@@ -19,6 +28,8 @@ return {
     hi DiagnosticErrorTablineSel guibg=NONE
     hi DiagnosticInfoTablineSel guibg=NONE
     hi DiagnosticHintTablineSel guibg=NONE
+    hi TreesitterContext guibg=#000001 blend=100
+    hi TreesitterContextLineNumber guibg=#000001 blend=100
 
     hi DiagnosticWarnTablineFillTab guibg=#ABB2BF guifg=black
     hi DiagnosticErrorTablineFillTab guibg=#ABB2BF guifg=black
@@ -27,15 +38,17 @@ return {
 
     hi SatelliteSearch guifg=white
     hi SatelliteSearchCurrent guifg=yellow
+    hi SatelliteBackground guibg=#000001 blend=100
+    hi SatelliteBar guibg=#ABB2BF blend=90
+    hi MsgArea guibg=#000001 blend=100
 
-    hi NoiceCmdlinePopup guibg=black blend=30
+    " hi NoiceCmdlinePopup guibg=black blend=30
 
     " hi Pmenu guibg=#161b22
     hi PmenuSel guibg=#30363d gui=bold
     hi PmenuSbar guibg=#161b22
     hi PmenuThumb guibg=#30363d
     hi CursorLineNr guifg=#98c279
-    hi lualine_c_normal guibg=NONE
 
     hi LuaLineTimeMinutes guifg=#aff05b
     hi LuaLineTimeSplit guifg=#b6e84e

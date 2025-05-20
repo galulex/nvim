@@ -37,10 +37,11 @@ o.autoread = true                 -- Update open files when changed externally
 o.mousescroll="ver:1,hor:0"       -- Disables horizontal scroll
 o.undofile = true
 o.showtabline = 2 -- Always show tabline
-o.winblend = 30
+o.winblend = 0
 o.laststatus = 3
 o.updatetime = 1000 -- Sets update time to 1 second
 o.tags = "./tmp/tags"
+o.foldenable = false
 
 global.noeb = "vb t_vb="                 -- No beeping
 global.settags = "./config/nvim/"
@@ -57,8 +58,9 @@ if vim.g.neovide then
   global.neovide_normal_opacity = 0.8
   global.neovide_window_blurred = false
   -- global.neovide_transparency = 0.8
-  global.neovide_floating_blur_amount_x = 2.0
-  global.neovide_floating_blur_amount_y = 2.0
+  global.neovide_floating_blur_amount_x = 10.0
+  global.neovide_floating_blur_amount_y = 10.0
+  global.neovide_floating_corner_radius = 10.0
   global.neovide_scroll_animation_length = 0.2
   global.neovide_cursor_vfx_mode = "pixiedust"
   global.neovide_cursor_animation_length = 0.05
@@ -80,7 +82,7 @@ if vim.g.neovide then
   global.neovide_theme = 'auto'
   global.neovide_unlink_border_highlights = true
   global.neovide_input_macos_option_key_is_meta = 'only_left'
-  global.neovide_padding_top=10
+  global.neovide_padding_top=0
   global.neovide_padding_left=0
   global.neovide_padding_right=0
   global.neovide_padding_bottom=0
