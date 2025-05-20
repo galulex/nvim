@@ -1,6 +1,6 @@
 local ignore_filetypes_list = {
     "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp",
-    "%.pdf", "%.odt", "%.ico", "vcr", "node_modules", "storage"
+    "%.pdf", "%.odt", "%.ico", "vcr/", "node_modules/", "storage/", "tmp/", "log/", "fixtures/"
 }
 
 return {
@@ -31,14 +31,6 @@ return {
     local function grep_cword()
       return telescopebuiltin.live_grep({ default_text = vim.fn.expand("<cword>"), only_sort_text = true })
     end
-    local function grep_visual()
-      local vstart = vim.fn.getpos("'<")
-      local vend = vim.fn.getpos("'>")
-      local line_start = vstart[2]
-      local line_end = vend[2]
-      return telescopebuiltin.live_grep({ default_text = vim.fn.getline(line_start,line_end), only_sort_text = true })
-    end
     vim.api.nvim_create_user_command("GrepCword", grep_cword, {})
-    vim.api.nvim_create_user_command("GrepVisual", grep_visual, {})
   end,
 }

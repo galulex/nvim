@@ -53,4 +53,4 @@ vim.keymap.set("n", "<D-o>", "<Cmd>Telescope find_files theme=dropdown prompt_pr
 vim.keymap.set("n", "<C-p>", "<Cmd>Telescope find_files theme=dropdown prompt_prefix=🔍<CR>")
 vim.keymap.set("n", "<D-S-o>", "<Cmd>Telescope lsp_references prompt_prefix=<CR>")
 vim.keymap.set("n", "<D-f>", "<Cmd>GrepCword<CR>")
-vim.keymap.set("v", "<D-f>", "<Cmd>GrepVisual<CR>")
+vim.keymap.set('v', '<D-f>', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })

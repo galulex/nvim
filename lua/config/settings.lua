@@ -94,5 +94,5 @@ end
 -- vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = [[%s/\s\+$//e]] })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.slim" }, command = "set ft=slim" })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.yml" }, command = "set ft=yaml" })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.jbuilder" }, command = "set ft=ruby" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "eruby.yaml", command = "set ft=yaml" })
