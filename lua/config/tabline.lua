@@ -1,5 +1,12 @@
 local api, fn = vim.api, vim.fn
 
+local gradient = {
+  '#f4468f', '#fd4a85', '#ff507a', '#ff566f', '#ff5e63', '#ff6658', '#ff704e', '#ff7a45', '#ff843d',
+  '#ff9036', '#f89b31', '#efa72f', '#e6b32e', '#dcbe30', '#d2c934', '#c8d43a', '#bfde43', '#b6e84e',
+  '#aff05b', '#b6e84e', '#bfde43', '#c8d43a', '#d2c934', '#dcbe30', '#e6b32e', '#efa72f', '#f89b31',
+  '#ff9036', '#ff843d', '#ff7a45', '#ff704e', '#ff6658', '#ff5e63', '#ff566f', '#ff507a', '#fd4a85',
+}
+
 local filetypes = {
   git = '󰬎󰬐󰬛 ',
   NeogitStatus = '󰬎󰬐󰬛 ',
@@ -127,14 +134,6 @@ local function devicon(bufnr, hl_base)
   return ''
 end
 
-local function separator(index, char)
-  local selected = fn.tabpagenr()
-  if selected == index then
-    return '%#TabLineSelSeparator#' .. " "
-  end
-  return '%#TabLineSeparator#' .. char
-end
-
 local icons = {
   Error = '',
   Warn = '',
@@ -147,18 +146,30 @@ local icons = {
 --- @return string
 local function get_diags(buflist, hl_base)
   local diags = {} --- @type string[]
+
   for _, ty in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
     local n = 0
     for _, bufnr in ipairs(buflist) do
       n = n + #vim.diagnostic.get(bufnr, { severity = ty })
     end
     if n > 0 then
-      diags[#diags + 1] = ('%%#Diagnostic%s%s#%s'):format(ty, hl_base, icons[ty])
+      local hl = 'Diagnostic' .. ty .. hl_base
+
+      -- Define highlight group if needed
+      if not vim.g['tabline_diag_' .. hl] then
+        local diag_hl = get_hl('Diagnostic' .. ty)
+        local bg = get_hl(hl_base).bg or 0x000000
+        api.nvim_set_hl(0, hl, { fg = diag_hl.fg, bg = bg })
+        vim.g['tabline_diag_' .. hl] = true
+      end
+
+      diags[#diags + 1] = ('%%#%s#%s'):format(hl, icons[ty])
     end
   end
 
   return table.concat(diags, '')
 end
+
 
 local function brand()
   return '        %#TabLineBrand#󰫏 󱌮  '
@@ -176,16 +187,51 @@ local function cell(index, selected)
     return vim.bo[b].buftype ~= 'nofile'
   end, buflist)
 
-  local hl = not selected and 'TabLineFillTab' or 'TabLineSel'
-  local common = '%#' .. hl .. '#'
-  local ret =
-    string.format('%s%%%dT%s%s%s', common, index, devicon(bufnr, hl), title(bufnr), flags(bufnr))
+  if selected then
+    -- Use default TabLineSel
+    local hl = 'TabLineSel'
+    local ret = string.format(
+      '%%#%s#%%%dT%s%s%s ',
+      hl,
+      index,
+      devicon(bufnr, hl),
+      title(bufnr),
+      flags(bufnr)
+    )
 
-  if #bufnrs > 1 then
-    ret = string.format('%s%s%s ', ret, common, transform(tostring(#bufnrs)))
+    if #bufnrs > 1 then
+      ret = string.format('%s %%#%s#%s', ret, hl, transform(tostring(#bufnrs)))
+    end
+
+    return '%#TabLineSelSeparator# ' .. ret .. get_diags(bufnrs, hl) .. '%T' .. '%#TabLineSelSeparator# '
+  else
+    -- Gradient background tab
+    local color = gradient[(index - 1) % #gradient + 1]
+    local hl = 'TabLineGrad' .. index
+    local sep_hl = 'TabLineSep' .. index
+
+    if not vim.g['tabline_grad_defined_' .. index] then
+      local fg = get_hl('TabLine').fg or 0x000000
+      api.nvim_set_hl(0, hl, { fg = fg, bg = color })
+      api.nvim_set_hl(0, sep_hl, { fg = color, bg = get_hl('TabLineFill').bg or 0x000000 })
+      vim.g['tabline_grad_defined_' .. index] = true
+    end
+
+    local ret = string.format(
+      '%%#%s#%%%dT%s%s%s',
+      hl,
+      index,
+      devicon(bufnr, hl),
+      title(bufnr),
+      flags(bufnr)
+    )
+
+    if #bufnrs > 1 then
+      ret = string.format('%s %%#%s#%s ', ret, hl, transform(tostring(#bufnrs)))
+    end
+
+    return string.format('%%#%s#%s%s%%T%%#%s# ', sep_hl, ret, get_diags(bufnrs, hl), sep_hl)
   end
-
-  return separator(index, '') .. ret .. get_diags(bufnrs, hl) .. '%T' .. separator(index, '') .. separator(index, ' ')
 end
   -- section_separators = { left = '', right = ''},
 

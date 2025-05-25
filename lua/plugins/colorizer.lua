@@ -5,6 +5,8 @@ return {
       "css";
       "javascript";
       "html";
+      "lua";
+      "typescript";
     },
       {
         RGB = true, -- #RGB hex codes

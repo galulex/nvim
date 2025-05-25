@@ -13,10 +13,10 @@ return {
     })
     vim.cmd("colorscheme onedark_dark")
 
-    vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { ctermfg = 8 })
-    vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { ctermfg = 8 })
-    vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn', { ctermfg = 8 })
-    vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { ctermfg = 8 })
+    -- vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { ctermfg = 8 })
+    -- vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { ctermfg = 8 })
+    -- vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn', { ctermfg = 8 })
+    -- vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { ctermfg = 8 })
 
     vim.cmd [[
     hi TabLineSelSeparator guibg=NONE guifg=#ABB2BF
@@ -40,14 +40,24 @@ return {
     hi SatelliteSearchCurrent guifg=yellow
     hi SatelliteBackground guibg=#000001 blend=100
     hi SatelliteBar guibg=#ABB2BF blend=90
+
     hi MsgArea guibg=#000001 blend=100
 
-    " hi NoiceCmdlinePopup guibg=black blend=30
+    hi TelescopeNormal guibg=#000001 blend=70
+    hi TelescopeBorder guibg=#000001 guifg=InsertMode blend=70
+    hi TelescopeSelection guibg=#000001 gui=bold blend=70
 
-    " hi Pmenu guibg=#161b22
-    hi PmenuSel guibg=#30363d gui=bold
-    hi PmenuSbar guibg=#161b22
-    hi PmenuThumb guibg=#30363d
+    hi FloatNormal guibg=#000001 blend=70
+    hi FloatBorder guibg=#000001 guifg=InsertMode blend=70
+
+    hi NoiceCmdlinePopup guibg=#000001 blend=70
+    hi NoiceCompletionItemKindDefault guibg=#000001 blend=70
+
+    hi Pmenu guibg=#000001 blend=70
+    hi PmenuSel guibg=#000001 blend=100 gui=bold guifg=#f4468f
+    hi PmenuSbar guibg=#000001 blend=100
+    hi PmenuThumb guibg=#ABB2BF blend=90
+
     hi CursorLineNr guifg=#98c279
 
     hi LuaLineTimeMinutes guifg=#aff05b

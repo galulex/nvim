@@ -66,6 +66,18 @@ return {
       },
     })
 
+
+    require'treesitter-context'.setup{
+      enable = true,
+      max_lines = 7, -- How many lines the window can be before it is disabled
+      trim_scope = true, -- Which scope to trim to
+      min_window_height = 0, -- Minimum editor window height to enable context
+      line_numbers = true, -- Use line numbers
+      multiline_threshold = 20, -- Maximum number of lines to show in the context window
+      zindex = 20, -- The Z-index of the context window
+      mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+    }
+
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
   end,

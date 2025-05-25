@@ -1,6 +1,6 @@
 local ignore_filetypes_list = {
-    "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp",
-    "%.pdf", "%.odt", "%.ico", "vcr/", "node_modules/", "storage/", "tmp/", "log/", "fixtures/"
+    "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.svg", "%.log",
+    "%.pdf", "%.odt", "%.ico", "vcr/", "node_modules/", "storage/", "tmp/", "fixtures/"
 }
 
 return {
@@ -18,12 +18,11 @@ return {
         layout_config = { prompt_position="top" },
         sorting_strategy = 'ascending',
         cursor_strategy = 'follow',
-        selection_caret=  ' ',
+        selection_caret=  '👉🏻',
         results_title = '💬',
         multi_icon = '📌',
         prompt_title = '🔍',
-        winblend = 40,
-
+        winblend = 50,
       }
     })
 
