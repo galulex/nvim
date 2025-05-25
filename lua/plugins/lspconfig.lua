@@ -12,7 +12,6 @@ return {
     vim.lsp.enable("html")
     vim.lsp.enable("jsonls")
     vim.lsp.enable("ruby_lsp")
-    vim.lsp.enable("rubocop")
     vim.lsp.enable("solargraph")
     vim.lsp.enable("eslint")
 
@@ -29,16 +28,6 @@ return {
         }
         vim.diagnostic.open_float(nil, opts)
       end
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "ruby",
-      callback = function()
-        vim.lsp.start {
-          name = "rubocop",
-          cmd = { "bundle", "exec", "rubocop", "--lsp" },
-        }
-      end,
     })
 
     vim.api.nvim_create_autocmd("BufWritePre", {

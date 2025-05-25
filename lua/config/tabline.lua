@@ -144,7 +144,7 @@ local icons = {
 --- @param buflist integer[]
 --- @param hl_base string
 --- @return string
-local function get_diags(buflist, hl_base)
+local function diags(buflist, hl_base)
   local diags = {} --- @type string[]
 
   for _, ty in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
@@ -191,11 +191,12 @@ local function cell(index, selected)
     -- Use default TabLineSel
     local hl = 'TabLineSel'
     local ret = string.format(
-      '%%#%s#%%%dT%s%s%s ',
+      '%%#%s#%%%dT%s%s%s%s',
       hl,
       index,
       devicon(bufnr, hl),
       title(bufnr),
+      diags(bufnrs, hl),
       flags(bufnr)
     )
 
@@ -203,7 +204,7 @@ local function cell(index, selected)
       ret = string.format('%s %%#%s#%s', ret, hl, transform(tostring(#bufnrs)))
     end
 
-    return '%#TabLineSelSeparator# ' .. ret .. get_diags(bufnrs, hl) .. '%T' .. '%#TabLineSelSeparator# '
+    return ' %#TabLineSelSeparator#' .. ret .. '%T' .. '%#TabLineSelSeparator#  '
   else
     -- Gradient background tab
     local color = gradient[(index - 1) % #gradient + 1]
@@ -218,11 +219,12 @@ local function cell(index, selected)
     end
 
     local ret = string.format(
-      '%%#%s#%%%dT%s%s%s',
+      '%%#%s#%%%sT%s%s%s',
       hl,
       index,
       devicon(bufnr, hl),
       title(bufnr),
+      diags(bufnrs, hl),
       flags(bufnr)
     )
 
@@ -230,7 +232,7 @@ local function cell(index, selected)
       ret = string.format('%s %%#%s#%s ', ret, hl, transform(tostring(#bufnrs)))
     end
 
-    return string.format('%%#%s#%s%s%%T%%#%s# ', sep_hl, ret, get_diags(bufnrs, hl), sep_hl)
+    return string.format('%%#%s#%s%%T%%#%s# ', sep_hl, ret, sep_hl)
   end
 end
   -- section_separators = { left = '', right = ''},
