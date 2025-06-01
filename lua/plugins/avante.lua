@@ -7,7 +7,6 @@ return {
   opts = {
     provider = "claude", -- Recommend using Claude
     auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation
-    mode = "legacy",
     behaviour = {
       auto_suggestions = true, -- Experimental stage
       auto_set_highlight_group = true,

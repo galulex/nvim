@@ -172,7 +172,7 @@ end
 
 
 local function brand()
-  return '        %#TabLineBrand#󰫏 󱌮  '
+  return '        %#TabLineBrand#󱌮  '
 end
 
 --- @param index integer
@@ -235,7 +235,7 @@ local function cell(index, selected)
     return string.format('%%#%s#%s%%T%%#%s# ', sep_hl, ret, sep_hl)
   end
 end
-  -- section_separators = { left = '', right = ''},
+  -- section_separators = { left = '󰘘', right = ''},
 
 local M = {}
 

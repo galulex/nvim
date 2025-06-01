@@ -44,7 +44,7 @@ o.tags = "./tmp/tags"
 o.foldenable = false
 
 global.noeb = "vb t_vb="                 -- No beeping
-global.settags = "./config/nvim/"
+-- global.settags = "./config/nvim/"
 
 global.nobackup = true                     -- Don't make a backup before overwriting a file.
 global.nowritebackup = true                -- And again.

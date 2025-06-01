@@ -1,5 +1,5 @@
 local ignore_filetypes_list = {
-    "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.svg", "%.log",
+    "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.svg", "%.log", "tags",
     "%.pdf", "%.odt", "%.ico", "vcr/", "node_modules/", "storage/", "tmp/", "fixtures/"
 }
 
