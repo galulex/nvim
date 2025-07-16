@@ -54,3 +54,10 @@ vim.keymap.set("n", "<C-p>", "<Cmd>Telescope find_files theme=dropdown prompt_pr
 vim.keymap.set("n", "<D-S-o>", "<Cmd>Telescope lsp_references prompt_prefix=🔁<CR>")
 vim.keymap.set("n", "<D-f>", "<Cmd>GrepCword<CR>")
 vim.keymap.set('v', '<D-f>', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>", { desc = 'Find by Grep (Visual)' })
+
+-- Zoom keymaps for Neovide
+if vim.g.neovide then
+  vim.api.nvim_set_keymap("n", "<D-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  2.0)<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<D-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  0.1)<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<D-0>", ":lua vim.g.neovide_scale_factor = 1.0<CR>", { silent = true })
+end

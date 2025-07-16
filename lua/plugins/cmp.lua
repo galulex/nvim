@@ -120,13 +120,13 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end),
+        -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        --   if cmp.visible() and has_words_before() then
+        --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        --   else
+        --     fallback()
+        --   end
+        -- end),
       }),
       performance = { fetching_timeout = 2000 },
       sources = cmp.config.sources({

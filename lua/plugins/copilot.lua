@@ -8,7 +8,7 @@ return {
       enabled = not vim.g.ai_cmp,
       auto_trigger = true,
       keymap = {
-        accept = "<M-Enter>",
+        accept = "<Tab>",
         next = "<M-]>",
         prev = "<M-[>",
       },
