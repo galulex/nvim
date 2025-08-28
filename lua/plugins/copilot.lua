@@ -13,9 +13,10 @@ return {
         prev = "<M-[>",
       },
     },
-    panel = { enabled = false },
+    panel = { enabled = true },
     filetypes = {
       markdown = true,
+      yaml = true,
       help = true,
     },
   },

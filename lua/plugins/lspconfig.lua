@@ -14,7 +14,24 @@ return {
     vim.lsp.enable("ruby_lsp")
     vim.lsp.enable("solargraph")
     vim.lsp.enable("eslint")
+    -- vim.lsp.enable('biome')
 
+    local lspconfig = require('lspconfig')
+
+    lspconfig.cssls.setup({
+      settings = {
+        css = {
+          lint = {
+            unknownAtRules = "ignore",
+          },
+        },
+        scss = {
+          lint = {
+            unknownAtRules = "ignore",
+          },
+        },
+      },
+    })
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,
       callback = function()
@@ -28,6 +45,16 @@ return {
         }
         vim.diagnostic.open_float(nil, opts)
       end
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "ruby",
+      callback = function()
+        vim.lsp.start {
+          name = "rubocop",
+          cmd = { "bundle", "exec", "rubocop", "--lsp" },
+        }
+      end,
     })
 
     vim.api.nvim_create_autocmd("BufWritePre", {
