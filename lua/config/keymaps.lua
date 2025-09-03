@@ -36,8 +36,9 @@ vim.keymap.set({ "n", "v" }, "<M-Left>", "b")
 vim.keymap.set("i", "<M-Right>", "<esc>wi")
 vim.keymap.set("i", "<M-Left>", "<esc>bi")
 
-vim.keymap.set("n", "<D-/>", "<Esc>gcc<End>")
-vim.keymap.set("v", "<D-/>", "gc")
+vim.keymap.set("n", "<D-/>", "gcc", { remap = true })
+vim.keymap.set("v", "<D-/>", "gc", { remap = true })
+vim.keymap.set("i", "<D-/>", "<Esc>gcca", { remap = true })
 
 vim.cmd [[
 map gV :Eview<CR>
