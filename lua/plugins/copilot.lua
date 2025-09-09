@@ -7,13 +7,15 @@ return {
     suggestion = {
       enabled = not vim.g.ai_cmp,
       auto_trigger = true,
+      debounce = 200, -- Increase from default 75ms to reduce frequency
       keymap = {
         accept = "<Tab>",
         next = "<M-]>",
         prev = "<M-[>",
+        dismiss = "<C-e>",
       },
     },
-    panel = { enabled = true },
+    panel = { enabled = false }, -- Disable panel to save completions
     filetypes = {
       markdown = true,
       yaml = true,
