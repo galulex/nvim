@@ -128,7 +128,13 @@ return {
         --   end
         -- end),
       }),
-      performance = { fetching_timeout = 2000 },
+      performance = { 
+        fetching_timeout = 200,
+        throttle = 60,
+        debounce = 60,
+        async_budget = 1,
+        max_view_entries = 20
+      },
       sources = cmp.config.sources({
         -- { name = "copilot" },
         -- { name = 'avante' },
@@ -137,7 +143,7 @@ return {
         { name = "buffer" },
         { name = "path" },
         -- { name = 'treesitter' }, Neovim freeze susspect
-        { name = "rg", keyword_length = 3 },
+        { name = "rg", keyword_length = 5, max_item_count = 5 },
       }),
     })
   end

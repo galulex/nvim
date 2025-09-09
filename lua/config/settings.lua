@@ -39,7 +39,7 @@ o.undofile = true
 o.showtabline = 2 -- Always show tabline
 o.winblend = 0
 o.laststatus = 3
-o.updatetime = 1000 -- Sets update time to 1 second
+o.updatetime = 100 -- Sets update time to 100ms for faster completion
 o.tags = "./tmp/tags"
 o.foldenable = false
 

@@ -12,7 +12,7 @@ return {
     vim.lsp.enable("html")
     vim.lsp.enable("jsonls")
     vim.lsp.enable("ruby_lsp")
-    vim.lsp.enable("solargraph")
+    -- vim.lsp.enable("solargraph") -- Disabled to avoid conflicts with ruby_lsp
     vim.lsp.enable("eslint")
     -- vim.lsp.enable('biome')
 
