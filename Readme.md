@@ -54,8 +54,8 @@ nvim
 2. **Install dependencies**:
    ```bash
    # Install ripgrep for fast searching
-   brew install ripgrep  # macOS
-   sudo apt install ripgrep  # Ubuntu
+   brew install ripgrep chafa ctags  # macOS
+   sudo apt install ripgrep chafa ctags # Ubuntu
    
    # Install Node.js for LSP servers
    brew install node  # macOS
