@@ -1,6 +1,7 @@
 return {
   'lewis6991/gitsigns.nvim',
-  opts = {
+  config = function()
+    require('gitsigns').setup({
     signs = {
       add          = { text = '│' },
       change       = { text = '┆' },
@@ -18,11 +19,11 @@ return {
       follow_files = true,
     },
     attach_to_untracked = true,
-    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame = true, -- Enable for Rails development
     current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-      delay = 1000,
+      delay = 300, -- Faster for Rails development
       ignore_whitespace = false,
     },
     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
@@ -38,5 +39,6 @@ return {
       row = 0,
       col = 1,
     },
-  }
+    })
+  end
 }

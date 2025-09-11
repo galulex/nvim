@@ -8,6 +8,11 @@ return {
     "zbirenbaum/copilot-cmp",
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
+    -- Rails-specific sources
+    { "wassimk/cmp-rails-fixture-names", version = "*", ft = "ruby" },
+    { "wassimk/cmp-rails-fixture-types", version = "*", ft = "ruby" },
+    -- For Rails views with CSS/HTML
+    "Jezda1337/nvim-html-css",
   },
   config = function()
     local cmp = require("cmp")
@@ -22,7 +27,10 @@ return {
     })
 
     require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip.loaders.from_snipmate").lazy_load()
     require'luasnip'.filetype_extend('ruby', { 'rails' })
+    require'luasnip'.filetype_extend('eruby', { 'html', 'rails' })
+    require'luasnip'.filetype_extend('slim', { 'html', 'rails' })
 
     local has_words_before = function()
       if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -129,22 +137,49 @@ return {
         -- end),
       }),
       performance = { 
-        fetching_timeout = 200,
+        fetching_timeout = 500, -- Increased for large Rails projects
         throttle = 60,
         debounce = 60,
         async_budget = 1,
         max_view_entries = 20
       },
       sources = cmp.config.sources({
-        -- { name = "copilot" },
-        -- { name = 'avante' },
-        { name = "luasnip" },
-        { name = "nvim_lsp" },
-        { name = "buffer" },
-        { name = "path" },
-        -- { name = 'treesitter' }, Neovim freeze susspect
-        { name = "rg", keyword_length = 5, max_item_count = 5 },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", priority = 750 },
+        { name = "rails-fixture-names", priority = 700 },
+        { name = "rails-fixture-types", priority = 700 },
+      }, {
+        { name = "buffer", priority = 500, keyword_length = 3 },
+        { name = "path", priority = 300 },
+        { name = "nvim-html-css", priority = 300 },
+        { name = "rg", keyword_length = 5, max_item_count = 5, priority = 100 },
       }),
+    })
+
+    -- Ruby-specific configuration
+    cmp.setup.filetype('ruby', {
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'rails-fixture-names' },
+        { name = 'rails-fixture-types' },
+        { name = 'luasnip' },
+      }, {
+        { name = 'buffer', keyword_length = 3 },
+        { name = 'path' },
+        { name = 'rg', keyword_length = 4, max_item_count = 5 },
+      })
+    })
+
+    -- ERB/Slim view files configuration
+    cmp.setup.filetype({'eruby', 'slim'}, {
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' }, -- HTML/CSS LSP completion
+        { name = 'nvim-html-css' },
+        { name = 'luasnip' },
+      }, {
+        { name = 'buffer' },
+        { name = 'path' },
+      })
     })
   end
 }

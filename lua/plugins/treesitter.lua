@@ -24,8 +24,16 @@ return {
       ignore_install = {""},
       auto_install = true,
       modules = {},
-      highlight = { enable = true, additional_vim_regex_highlighting = false, },
-      indent = { enable = true },
+      highlight = { 
+        enable = true, 
+        -- Ruby may need vim regex for proper indentation
+        additional_vim_regex_highlighting = { 'ruby' },
+      },
+      indent = { 
+        enable = true,
+        -- Disable for Ruby due to indentation issues
+        disable = { 'ruby' }
+      },
       endwise = { enable = true },
       ensure_installed = {
         "json",
@@ -44,6 +52,7 @@ return {
         "dockerfile",
         "gitignore",
         "ruby",
+        "embedded_template", -- For ERB
       },
       incremental_selection = {
         enable = true,
@@ -80,5 +89,8 @@ return {
 
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    
+    -- ERB support
+    vim.treesitter.language.register("embedded_template", "eruby")
   end,
 }

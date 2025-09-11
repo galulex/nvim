@@ -19,6 +19,7 @@ return {
     local lspconfig = require('lspconfig')
 
     lspconfig.cssls.setup({
+      filetypes = { "css", "scss", "less", "slim" }, -- Add Slim support
       settings = {
         css = {
           lint = {
@@ -31,6 +32,10 @@ return {
           },
         },
       },
+    })
+    
+    lspconfig.html.setup({
+      filetypes = { "html", "slim" }, -- Add HTML completion for Slim
     })
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,
