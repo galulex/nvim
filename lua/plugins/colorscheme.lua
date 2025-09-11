@@ -77,8 +77,6 @@ return {
     hi NeogitRemote guifg=#61afef guibg=NONE
     hi NeogitHunkHeader guifg=#c678dd gui=bold guibg=NONE
     hi NeogitHunkHeaderHighlight guifg=#c678dd guibg=NONE gui=bold
-    " hi NeogitDiffContextHighlight guibg=#000001 blend=100
-    hi NeogitDiffContext guibg=#000001 blend=50 " TODO: Fix this color
     hi NeogitDiffAddHighlight guifg=#98c379 guibg=NONE
     hi NeogitDiffDeleteHighlight guifg=#e06c75 guibg=NONE
     hi NeogitDiffAdd guifg=#98c379 guibg=NONE
@@ -116,18 +114,28 @@ return {
     hi NeogitSignatureNone guifg=#5c6370 guibg=NONE
     hi NeogitTagName guifg=#e5c07b guibg=NONE
     hi NeogitTagDistance guifg=#d19a66 guibg=NONE
-    
+
     " Fix cursor row and selection highlights to be transparent
     hi NeogitCursorLine guibg=NONE
     hi NeogitHunkHeaderCursor guifg=#c678dd guibg=NONE gui=bold
     hi NeogitDiffHeaderCursor guifg=#abb2bf guibg=NONE
-    
+
     " Fix Neogit background to match nvim background (transparent)
     hi NeogitNormal guibg=NONE
     hi NeogitNotificationInfo guibg=NONE
     hi NeogitNotificationWarning guibg=NONE
     hi NeogitNotificationError guibg=NONE
     ]]
+
+    -- Override neogit highlights after it loads to ensure transparency
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitStatus",
+      callback = function()
+        vim.api.nvim_set_hl(0, "NeogitDiffContextHighlight", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "NeogitDiffContext", { fg = "#abb2bf", bg = "NONE" })
+        -- vim.api.nvim_set_hl(0, "NeogitDiffContextCursor", { bg = "NONE" })
+      end
+    })
 
     local colors = {
       "#98c279", "#a0c279", "#a8c279", "#b0c27a", "#b8c17a",
