@@ -71,6 +71,62 @@ return {
     hi LuaLineLinesX guifg=#f89b31
     hi LuaLineLinesXIcon guifg=#ff9036
     hi LuaLineLinesXPreIcon guifg=#ff843d
+
+    " Neogit custom highlights to match OneDarkPro theme
+    hi NeogitBranch guifg=#98c379 guibg=NONE
+    hi NeogitRemote guifg=#61afef guibg=NONE
+    hi NeogitHunkHeader guifg=#c678dd gui=bold guibg=NONE
+    hi NeogitHunkHeaderHighlight guifg=#c678dd guibg=NONE gui=bold
+    " hi NeogitDiffContextHighlight guibg=#000001 blend=100
+    hi NeogitDiffContext guibg=#000001 blend=50 " TODO: Fix this color
+    hi NeogitDiffAddHighlight guifg=#98c379 guibg=NONE
+    hi NeogitDiffDeleteHighlight guifg=#e06c75 guibg=NONE
+    hi NeogitDiffAdd guifg=#98c379 guibg=NONE
+    hi NeogitDiffDelete guifg=#e06c75 guibg=NONE
+    hi NeogitSectionHeader guifg=#e5c07b gui=bold guibg=NONE
+    hi NeogitChangeModified guifg=#d19a66 guibg=NONE
+    hi NeogitChangeAdded guifg=#98c379 guibg=NONE
+    hi NeogitChangeDeleted guifg=#e06c75 guibg=NONE
+    hi NeogitChangeRenamed guifg=#61afef guibg=NONE
+    hi NeogitChangeCopied guifg=#56b6c2 guibg=NONE
+    hi NeogitChangeUpdated guifg=#c678dd guibg=NONE
+    hi NeogitChangeUntracked guifg=#be5046 guibg=NONE
+    hi NeogitUntrackedfiles guifg=#be5046 guibg=NONE
+    hi NeogitUnstagedchanges guifg=#d19a66 guibg=NONE
+    hi NeogitStagedchanges guifg=#98c379 guibg=NONE
+    hi NeogitUnpulledchanges guifg=#61afef guibg=NONE
+    hi NeogitUnmergedchanges guifg=#e06c75 guibg=NONE
+    hi NeogitRecentcommits guifg=#abb2bf guibg=NONE
+    hi NeogitStashes guifg=#c678dd guibg=NONE
+    hi NeogitCommitViewHeader guifg=#e5c07b gui=bold guibg=NONE
+    hi NeogitFilePath guifg=#abb2bf guibg=NONE
+    hi NeogitCommitViewDescription guifg=#abb2bf guibg=NONE
+    hi NeogitPopupSectionTitle guifg=#e5c07b gui=bold guibg=NONE
+    hi NeogitPopupBranchName guifg=#98c379 guibg=NONE
+    hi NeogitPopupBold guifg=#abb2bf gui=bold guibg=NONE
+    hi NeogitPopupSwitchKey guifg=#61afef guibg=NONE
+    hi NeogitPopupOptionKey guifg=#c678dd guibg=NONE
+    hi NeogitPopupConfigKey guifg=#d19a66 guibg=NONE
+    hi NeogitPopupActionKey guifg=#e06c75 guibg=NONE
+    hi NeogitPopupSwitchEnabled guifg=#98c379 guibg=NONE
+    hi NeogitPopupSwitchDisabled guifg=#5c6370 guibg=NONE
+    hi NeogitSignatureGood guifg=#98c379 guibg=NONE
+    hi NeogitSignatureBad guifg=#e06c75 guibg=NONE
+    hi NeogitSignatureMissing guifg=#d19a66 guibg=NONE
+    hi NeogitSignatureNone guifg=#5c6370 guibg=NONE
+    hi NeogitTagName guifg=#e5c07b guibg=NONE
+    hi NeogitTagDistance guifg=#d19a66 guibg=NONE
+    
+    " Fix cursor row and selection highlights to be transparent
+    hi NeogitCursorLine guibg=NONE
+    hi NeogitHunkHeaderCursor guifg=#c678dd guibg=NONE gui=bold
+    hi NeogitDiffHeaderCursor guifg=#abb2bf guibg=NONE
+    
+    " Fix Neogit background to match nvim background (transparent)
+    hi NeogitNormal guibg=NONE
+    hi NeogitNotificationInfo guibg=NONE
+    hi NeogitNotificationWarning guibg=NONE
+    hi NeogitNotificationError guibg=NONE
     ]]
 
     local colors = {
