@@ -4,6 +4,7 @@ vim.keymap.set("n", "<D-c>", '"+y')
 vim.keymap.set("n", "<D-v>", '"+p')
 vim.keymap.set("i", "<D-v>", '<Esc>"+pa')
 vim.keymap.set("c", "<D-v>", '<c-r>+')
+vim.keymap.set("t", "<D-v>", '<C-\\><C-N>"+pi')
 vim.keymap.set("n", "<D-z>", 'u')
 vim.keymap.set("i", "<D-z>", '<Esc>ua')
 
