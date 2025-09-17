@@ -1,8 +1,9 @@
 return {
   -- Chafa image viewer as ASCII art
   {
-    "princejoogie/chafa.nvim",
-    dependencies = { 
+    "Frederick888/chafa.nvim",
+    branch = "new-chafa", -- Use the branch with fixes
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "m00qek/baleia.nvim" -- for ANSI colors
     },
