@@ -50,13 +50,26 @@ return {
     hi FloatNormal guibg=#000001 blend=70
     hi FloatBorder guibg=#000001 guifg=InsertMode blend=70
 
+    " Diagnostics popup highlights
+    hi DiagnosticFloatingError guibg=#000001 blend=70
+    hi DiagnosticFloatingWarn guibg=#000001 blend=70
+    hi DiagnosticFloatingInfo guibg=#000001 blend=70
+    hi DiagnosticFloatingHint guibg=#000001 blend=70
+    hi NormalFloat guibg=#000001 blend=70
+
     hi NoiceCmdlinePopup guibg=#000001 blend=70
     hi NoiceCompletionItemKindDefault guibg=#000001 blend=70
 
     hi Pmenu guibg=#000001 blend=70
-    hi PmenuSel guibg=#000001 blend=100 gui=bold guifg=#f4468f
-    hi PmenuSbar guibg=#000001 blend=100
+    hi PmenuSel guibg=#000001 blend=70 gui=bold guifg=#f4468f
+    hi PmenuSbar guibg=#000001 blend=70
     hi PmenuThumb guibg=#ABB2BF blend=90
+
+    " CMP-specific highlights
+    hi CmpNormal guibg=#000001 blend=70
+    hi CmpItemAbbrMatch guifg=#e5c07b gui=bold
+    hi CmpItemAbbrMatchFuzzy guifg=#e5c07b gui=bold
+    hi CmpSearch guifg=#e5c07b gui=bold
 
     " Custom mode-aware cursor line number coloring (replacing modicator)
     hi CursorLineNr guifg=#98c379 gui=bold " Default/Normal mode - green

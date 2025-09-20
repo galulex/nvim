@@ -31,6 +31,7 @@ o.backspace = "indent,eol,start"-- Intuitive backspacing.
 o.incsearch = true              -- Highlight matches as you type.
 o.hlsearch = true                      -- Highlight matches.
 o.scrolloff=3                   -- Show 3 lines of context around the cursor.
+vim.cmd('set nosol')            -- Keep cursor column when scrolling
 o.shortmess="filmnrxtTI"          -- Disable intro message
 o.list = true
 o.listchars="trail:•"             -- Show spaces in end of line
@@ -62,12 +63,12 @@ if vim.g.neovide then
   global.neovide_floating_blur_amount_x = 10.0
   global.neovide_floating_blur_amount_y = 10.0
   global.neovide_floating_corner_radius = 10.0
-  global.neovide_scroll_animation_length = 0.2
+  global.neovide_scroll_animation_length = 0.1
   global.neovide_cursor_vfx_mode = "pixiedust"
   global.neovide_cursor_animation_length = 0.05
   global.neovide_cursor_trail_size = 0.1
   global.neovide_touch_deadzone = 6.0
-  global.neovide_touch_drag_timeout = 1
+  global.neovide_touch_drag_timeout = 0.3
   global.neovide_underline_automatic_scaling = false
   global.neovide_refresh_rate = 120
   global.neovide_refresh_rate_idle = 5
