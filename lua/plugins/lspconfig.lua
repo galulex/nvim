@@ -33,17 +33,51 @@ return {
         },
       },
     })
-    
+
     lspconfig.html.setup({
       filetypes = { "html", "slim" }, -- Add HTML completion for Slim
     })
     vim.api.nvim_create_autocmd("CursorHold", {
-      buffer = bufnr,
       callback = function()
+        local diagnostics = vim.diagnostic.get(0, {lnum = vim.fn.line('.') - 1})
+        if #diagnostics == 0 then
+          return
+        end
+
+        -- Get the highest severity diagnostic
+        local highest_severity = diagnostics[1].severity
+        for _, diagnostic in ipairs(diagnostics) do
+          if diagnostic.severity < highest_severity then
+            highest_severity = diagnostic.severity
+          end
+        end
+
+        -- Map severity to border highlight
+        local border_highlight = "FloatBorder"
+        if highest_severity == vim.diagnostic.severity.ERROR then
+          border_highlight = "DiagnosticFloatingError"
+        elseif highest_severity == vim.diagnostic.severity.WARN then
+          border_highlight = "DiagnosticFloatingWarn"
+        elseif highest_severity == vim.diagnostic.severity.INFO then
+          border_highlight = "DiagnosticFloatingInfo"
+        elseif highest_severity == vim.diagnostic.severity.HINT then
+          border_highlight = "DiagnosticFloatingHint"
+        end
+
         local opts = {
           focusable = false,
           close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          border = 'rounded',
+          border = {
+            {"╭", border_highlight},
+            {"─", border_highlight},
+            {"╮", border_highlight},
+            {"│", border_highlight},
+            {"╯", border_highlight},
+            {"─", border_highlight},
+            {"╰", border_highlight},
+            {"│", border_highlight},
+          },
+          header = "",
           source = 'always',
           prefix = ' ',
           scope = 'cursor',

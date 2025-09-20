@@ -62,7 +62,7 @@ if vim.g.neovide then
   -- global.neovide_transparency = 0.8
   global.neovide_floating_blur_amount_x = 10.0
   global.neovide_floating_blur_amount_y = 10.0
-  global.neovide_floating_corner_radius = 10.0
+  global.neovide_floating_corner_radius = 0.5
   global.neovide_scroll_animation_length = 0.1
   global.neovide_cursor_vfx_mode = "pixiedust"
   global.neovide_cursor_animation_length = 0.05

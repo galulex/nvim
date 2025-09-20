@@ -51,10 +51,10 @@ return {
     hi FloatBorder guibg=#000001 guifg=InsertMode blend=70
 
     " Diagnostics popup highlights
-    hi DiagnosticFloatingError guibg=#000001 blend=70
-    hi DiagnosticFloatingWarn guibg=#000001 blend=70
-    hi DiagnosticFloatingInfo guibg=#000001 blend=70
-    hi DiagnosticFloatingHint guibg=#000001 blend=70
+    hi DiagnosticFloatingError guibg=#000001 guifg=#e06c75 blend=70
+    hi DiagnosticFloatingWarn guibg=#000001 guifg=#e5c07b blend=70
+    hi DiagnosticFloatingInfo guibg=#000001 guifg=#61afef blend=70
+    hi DiagnosticFloatingHint guibg=#000001 guifg=#61afef blend=70
     hi NormalFloat guibg=#000001 blend=70
 
     hi NoiceCmdlinePopup guibg=#000001 blend=70
