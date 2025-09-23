@@ -3,9 +3,10 @@ return {
   cmd = "Copilot",
   build = ":Copilot auth",
   event = "InsertEnter",
+  enabled = true, -- Re-enabled
   opts = {
     suggestion = {
-      enabled = not vim.g.ai_cmp,
+      enabled = true,
       auto_trigger = true,
       debounce = 200, -- Increase from default 75ms to reduce frequency
       keymap = {

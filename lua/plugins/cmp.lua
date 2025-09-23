@@ -144,6 +144,7 @@ return {
         max_view_entries = 20
       },
       sources = cmp.config.sources({
+        { name = "copilot", priority = 1100 },
         { name = "nvim_lsp", priority = 1000 },
         { name = "luasnip", priority = 750 },
         { name = "rails-fixture-names", priority = 700 },
@@ -159,6 +160,7 @@ return {
     -- Ruby-specific configuration
     cmp.setup.filetype('ruby', {
       sources = cmp.config.sources({
+        { name = "copilot", priority = 1100 },
         { name = 'nvim_lsp' },
         { name = 'rails-fixture-names' },
         { name = 'rails-fixture-types' },
@@ -173,6 +175,7 @@ return {
     -- ERB/Slim view files configuration
     cmp.setup.filetype({'eruby', 'slim'}, {
       sources = cmp.config.sources({
+        { name = "copilot", priority = 1100 },
         { name = 'nvim_lsp' }, -- HTML/CSS LSP completion
         { name = 'nvim-html-css' },
         { name = 'luasnip' },

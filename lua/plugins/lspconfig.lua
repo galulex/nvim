@@ -37,6 +37,19 @@ return {
     lspconfig.html.setup({
       filetypes = { "html", "slim" }, -- Add HTML completion for Slim
     })
+
+    lspconfig.tailwindcss.setup({
+      filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact", "slim", "eruby" },
+      settings = {
+        tailwindCSS = {
+          includeLanguages = {
+            slim = "html",
+            eruby = "html",
+          },
+          classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+        },
+      },
+    })
     vim.api.nvim_create_autocmd("CursorHold", {
       callback = function()
         local diagnostics = vim.diagnostic.get(0, {lnum = vim.fn.line('.') - 1})

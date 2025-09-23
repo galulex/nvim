@@ -1,29 +1,88 @@
 return {
   "yetone/avante.nvim",
-  enabled = false,
+  enabled = false, -- Disabled - using Copilot instead
   event = "VeryLazy",
   lazy = false,
-  version = false, -- set this if you want to always pull the latest change
+  version = false,
   opts = {
-    provider = "claude", -- Recommend using Claude
-    auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation
+    provider = "claude",
+    auto_suggestions_provider = "claude",
+    mode = "legacy", -- Use legacy mode for better inline suggestions
+    suggestion = {
+      debounce = 100,
+      throttle = 200,
+    },
+    providers = {
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-3-5-sonnet-20241022",
+        api_key_name = "ANTHROPIC_API_KEY",
+        extra_request_body = {
+          temperature = 0.3,
+          max_tokens = 512,
+        },
+      },
+    },
     behaviour = {
-      auto_suggestions = true, -- Experimental stage
+      auto_suggestions = false, -- DISABLED - broken duplication
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
-      enable_cursor_planning_mode = true, -- enable cursor planning mode!
     },
-    suggestion = {
-      accept = "<Tab>",
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<C-]>",
-      debounce = 200,
-      throttle = 100,
+    mappings = {
+      --- @class AvanteConflictMappings
+      diff = {
+        ours = "co",
+        theirs = "ct",
+        all_theirs = "ca",
+        both = "cb",
+        cursor = "cc",
+        next = "]x",
+        prev = "[x",
+      },
+      suggestion = {
+        accept = "<Tab>",
+        accept_word = "<C-Right>",
+        accept_line = "<C-Down>",
+        next = "<M-]>",
+        prev = "<M-[>",
+        dismiss = "<C-]>",
+      },
+      jump = {
+        next = "]]",
+        prev = "[[",
+      },
+      submit = {
+        normal = "<CR>",
+        insert = "<C-s>",
+      },
+      sidebar = {
+        apply_all = "A",
+        apply_cursor = "a",
+        switch_windows = "<Tab>",
+        reverse_switch_windows = "<S-Tab>",
+      },
     },
     hints = { enabled = true },
+    windows = {
+      position = "right", -- the position of the sidebar
+      wrap = true, -- similar to vim.o.wrap
+      width = 30, -- default % based on available width
+    },
+    highlights = {
+      ---@type AvanteConflictHighlights
+      diff = {
+        current = "DiffText",
+        incoming = "DiffAdd",
+      },
+    },
+    --- @class AvanteConflictUserConfig
+    diff = {
+      autojump = true,
+      debug = false,
+      list_opener = "copen",
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
