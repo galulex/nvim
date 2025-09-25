@@ -12,6 +12,7 @@ return {
     vim.lsp.enable("html")
     vim.lsp.enable("jsonls")
     vim.lsp.enable("ruby_lsp")
+    vim.lsp.enable("typos_lsp")
     -- vim.lsp.enable("solargraph") -- Disabled to avoid conflicts with ruby_lsp
     vim.lsp.enable("eslint")
     -- vim.lsp.enable('biome')
@@ -48,6 +49,14 @@ return {
           },
           classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
         },
+      },
+    })
+
+    lspconfig.typos_lsp.setup({
+      filetypes = {
+        "ruby", "javascript", "typescript", "lua", "markdown", "text",
+        "html", "css", "scss", "slim", "eruby", "yaml", "yml", "json",
+        "toml", "gitcommit", "dockerfile", "sh", "bash", "zsh"
       },
     })
     vim.api.nvim_create_autocmd("CursorHold", {
