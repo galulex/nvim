@@ -51,6 +51,25 @@ map gS :Estylesheet<CR>
 ]]
 
 
+-- Copilot Tab with fallback
+local function copilot_tab_fallback()
+  local copilot = require("copilot.suggestion")
+  if copilot.is_visible() then
+    copilot.accept()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+  end
+end
+
+vim.keymap.set("i", "<Tab>", copilot_tab_fallback, { desc = "Accept Copilot or regular Tab" })
+
+-- LSP navigation keymaps
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "<C-}>", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+
 -- Zoom keymaps for Neovide
 if vim.g.neovide then
   vim.api.nvim_set_keymap("n", "<D-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  2.0)<CR>", { silent = true })

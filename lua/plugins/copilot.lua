@@ -10,7 +10,7 @@ return {
       auto_trigger = true,
       debounce = 200, -- Increase from default 75ms to reduce frequency
       keymap = {
-        accept = "<Tab>",
+        accept = false, -- Handled by custom keymap
         next = "<M-]>",
         prev = "<M-[>",
         dismiss = "<C-e>",
