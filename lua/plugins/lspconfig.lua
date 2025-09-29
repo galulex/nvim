@@ -41,6 +41,12 @@ return {
 
     lspconfig.tailwindcss.setup({
       filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact", "slim", "eruby" },
+      init_options = {
+        userLanguages = {
+          slim = "html",
+          eruby = "html",
+        },
+      },
       settings = {
         tailwindCSS = {
           includeLanguages = {
@@ -48,6 +54,18 @@ return {
             eruby = "html",
           },
           classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+          experimental = {
+            classRegex = {
+              -- Standard HTML class attributes
+              "class\\s*=\\s*[\"']([^\"']*)[\"']",
+              -- Slim shorthand syntax
+              "\\.([-\\w]+)",
+              -- Slim with element: div.class-name
+              "\\w+\\.([-\\w]+)",
+              -- Multiple classes in Slim: .class1.class2
+              "\\.([-\\w]+(?:\\.[-\\w]+)*)",
+            },
+          },
         },
       },
     })

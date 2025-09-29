@@ -12,13 +12,18 @@ return {
     { "wassimk/cmp-rails-fixture-names", version = "*", ft = "ruby" },
     { "wassimk/cmp-rails-fixture-types", version = "*", ft = "ruby" },
     -- For Rails views with CSS/HTML
-    "Jezda1337/nvim-html-css",
+    {
+      "Jezda1337/nvim-html-css",
+      config = function()
+        require("html-css"):setup()
+      end,
+    },
   },
   config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")
-    require("copilot_cmp").setup()
+    -- require("copilot_cmp").setup()
 
     -- create an autocommand which closes cmp when ai completions are displayed
     vim.api.nvim_create_autocmd("User", {
@@ -39,6 +44,29 @@ return {
     end
 
     cmp.setup({
+      -- Disable fuzzy matching for more relevant results
+      matching = {
+        disallow_fuzzy_matching = true,
+        disallow_fullfuzzy_matching = true,
+        disallow_partial_fuzzy_matching = true,
+        disallow_partial_matching = false,
+        disallow_prefix_unmatching = false,
+      },
+      -- Better sorting for Rails/JS development
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+        },
+      },
       window = {
         completion = {
           border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
@@ -136,52 +164,65 @@ return {
         --   end
         -- end),
       }),
-      performance = { 
-        fetching_timeout = 500, -- Increased for large Rails projects
-        throttle = 60,
-        debounce = 60,
+      performance = {
+        fetching_timeout = 200, -- Reduced for snappier completions
+        throttle = 30,
+        debounce = 30,
         async_budget = 1,
-        max_view_entries = 20
+        max_view_entries = 15 -- Fewer entries for faster rendering
       },
       sources = cmp.config.sources({
-        { name = "copilot", priority = 1100 },
+        -- { name = "copilot", priority = 1100 },
         { name = "nvim_lsp", priority = 1000 },
         { name = "luasnip", priority = 750 },
         { name = "rails-fixture-names", priority = 700 },
         { name = "rails-fixture-types", priority = 700 },
       }, {
-        { name = "buffer", priority = 500, keyword_length = 3 },
+        { name = "buffer", priority = 500, keyword_length = 2 }, -- Lower keyword length
         { name = "path", priority = 300 },
         { name = "nvim-html-css", priority = 300 },
-        { name = "rg", keyword_length = 5, max_item_count = 5, priority = 100 },
+        { name = "rg", keyword_length = 3, max_item_count = 8, priority = 100 }, -- More useful ripgrep
       }),
     })
 
     -- Ruby-specific configuration
     cmp.setup.filetype('ruby', {
       sources = cmp.config.sources({
-        { name = "copilot", priority = 1100 },
+        -- { name = "copilot", priority = 1100 },
         { name = 'nvim_lsp' },
         { name = 'rails-fixture-names' },
         { name = 'rails-fixture-types' },
         { name = 'luasnip' },
       }, {
-        { name = 'buffer', keyword_length = 3 },
+        { name = 'buffer', keyword_length = 2 },
         { name = 'path' },
-        { name = 'rg', keyword_length = 4, max_item_count = 5 },
+        { name = 'rg', keyword_length = 3, max_item_count = 8 },
+      })
+    })
+
+    -- JavaScript/TypeScript configuration
+    cmp.setup.filetype({'javascript', 'typescript', 'javascriptreact', 'typescriptreact'}, {
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp', priority = 1000 }, -- TSServer, ESLint, etc.
+        { name = 'luasnip', priority = 750 },
+      }, {
+        { name = 'buffer', keyword_length = 2, priority = 500 },
+        { name = 'path', priority = 300 },
+        { name = 'rg', keyword_length = 3, max_item_count = 10, priority = 100 },
       })
     })
 
     -- ERB/Slim view files configuration
     cmp.setup.filetype({'eruby', 'slim'}, {
       sources = cmp.config.sources({
-        { name = "copilot", priority = 1100 },
-        { name = 'nvim_lsp' }, -- HTML/CSS LSP completion
-        { name = 'nvim-html-css' },
-        { name = 'luasnip' },
+        -- { name = "copilot", priority = 1100 },
+        { name = 'nvim_lsp', priority = 1000 }, -- Tailwind/HTML/CSS LSP completion
+        { name = 'nvim-html-css', priority = 900 },
+        { name = 'luasnip', priority = 750 },
       }, {
-        { name = 'buffer' },
-        { name = 'path' },
+        { name = 'buffer', keyword_length = 2, priority = 500 },
+        { name = 'path', priority = 300 },
+        { name = 'rg', keyword_length = 3, max_item_count = 8, priority = 100 },
       })
     })
   end
