@@ -80,6 +80,16 @@ return {
           view = "notify",
           opts = {},
         },
+        notify = {
+          opts = {
+            winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
+          },
+        },
+        split = {
+          win_options = {
+            winhighlight = {},
+          },
+        },
       },
     })
   end,

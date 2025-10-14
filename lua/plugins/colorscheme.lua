@@ -57,8 +57,9 @@ return {
     hi DiagnosticFloatingHint guibg=#000001 guifg=#61afef blend=70
     hi NormalFloat guibg=#000001 blend=70
 
-    hi NoiceCmdlinePopup guibg=#000001 blend=70
-    hi NoiceCompletionItemKindDefault guibg=#000001 blend=70
+    " NoiceAll split view (message history)
+    hi NoiceSplit guifg=#abb2bf guibg=NONE
+    hi NoiceSplitBorder guibg=NONE guifg=#61afef
 
     hi Pmenu guibg=#000001 blend=70
     hi PmenuSel guibg=#000001 blend=70 gui=bold guifg=#f4468f

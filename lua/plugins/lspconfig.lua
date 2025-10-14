@@ -7,20 +7,37 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    vim.lsp.enable("cssls")
-    vim.lsp.enable("tailwindcss")
-    vim.lsp.enable("html")
-    vim.lsp.enable("jsonls")
-    vim.lsp.enable("ruby_lsp")
-    vim.lsp.enable("typos_lsp")
-    -- vim.lsp.enable("solargraph") -- Disabled to avoid conflicts with ruby_lsp
-    vim.lsp.enable("eslint")
-    -- vim.lsp.enable('biome')
+    -- Configure LSP servers before enabling them
+    -- Biome LSP configuration
+    vim.lsp.config.biome = {
+      cmd = { 'biome', 'lsp-proxy' },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "json",
+        "jsonc",
+        "css",
+        "html",
+        "svelte"
+      },
+      root_markers = { 'biome.json', 'biome.jsonc', 'package.json', '.git' },
+      single_file_support = true,
+      settings = {
+        biome = {
+          formatter = {
+            indentStyle = "space",
+            indentWidth = 2
+          }
+        }
+      }
+    }
 
-    local lspconfig = require('lspconfig')
-
-    lspconfig.cssls.setup({
-      filetypes = { "css", "scss", "less", "slim" }, -- Add Slim support
+    vim.lsp.config.cssls = {
+      cmd = { 'vscode-css-language-server', '--stdio' },
+      filetypes = { "css", "scss", "less", "slim" },
+      root_markers = { 'package.json', '.git' },
       settings = {
         css = {
           lint = {
@@ -33,14 +50,18 @@ return {
           },
         },
       },
-    })
+    }
 
-    lspconfig.html.setup({
-      filetypes = { "html", "slim" }, -- Add HTML completion for Slim
-    })
+    vim.lsp.config.html = {
+      cmd = { 'vscode-html-language-server', '--stdio' },
+      filetypes = { "html", "slim" },
+      root_markers = { 'package.json', '.git' },
+    }
 
-    lspconfig.tailwindcss.setup({
+    vim.lsp.config.tailwindcss = {
+      cmd = { 'tailwindcss-language-server', '--stdio' },
       filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact", "slim", "eruby" },
+      root_markers = { 'tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.ts', 'package.json', '.git' },
       init_options = {
         userLanguages = {
           slim = "html",
@@ -68,15 +89,28 @@ return {
           },
         },
       },
-    })
+    }
 
-    lspconfig.typos_lsp.setup({
+    vim.lsp.config.typos_lsp = {
+      cmd = { 'typos-lsp' },
       filetypes = {
         "ruby", "javascript", "typescript", "lua", "markdown", "text",
         "html", "css", "scss", "slim", "eruby", "yaml", "yml", "json",
         "toml", "gitcommit", "dockerfile", "sh", "bash", "zsh"
       },
-    })
+      root_markers = { '.git' },
+    }
+
+    -- Enable LSP servers
+    vim.lsp.enable("cssls")
+    vim.lsp.enable("tailwindcss")
+    vim.lsp.enable("html")
+    vim.lsp.enable("jsonls")
+    vim.lsp.enable("ruby_lsp")
+    vim.lsp.enable("typos_lsp")
+    -- vim.lsp.enable("solargraph") -- Disabled to avoid conflicts with ruby_lsp
+    vim.lsp.enable("eslint")
+    vim.lsp.enable('biome')
     vim.api.nvim_create_autocmd("CursorHold", {
       callback = function()
         local diagnostics = vim.diagnostic.get(0, {lnum = vim.fn.line('.') - 1})
@@ -131,6 +165,33 @@ return {
       pattern = "*.rb",
       callback = function()
         vim.lsp.buf.format()
+      end,
+    })
+
+    -- Biome autoformatting on save
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = {
+        "*.js",
+        "*.jsx",
+        "*.ts",
+        "*.tsx",
+        "*.json",
+        "*.jsonc",
+        "*.css",
+        "*.html",
+        "*.svelte"
+      },
+      callback = function()
+        local clients = vim.lsp.get_clients({ name = "biome" })
+        if #clients > 0 then
+          vim.lsp.buf.format({
+            name = "biome",
+            options = {
+              indentStyle = "space",
+              indentWidth = 2
+            }
+          })
+        end
       end,
     })
   end

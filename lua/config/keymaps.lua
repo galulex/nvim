@@ -63,32 +63,6 @@ end
 
 vim.keymap.set("i", "<Tab>", copilot_tab_fallback, { desc = "Accept Copilot or regular Tab" })
 
--- Enhanced Esc key to dismiss CMP and Copilot suggestions while staying in insert mode
-local function enhanced_esc()
-  local cmp = require("cmp")
-  local copilot = require("copilot.suggestion")
-
-  -- Check if CMP or Copilot is visible
-  local cmp_visible = cmp.visible()
-  local copilot_visible = copilot.is_visible()
-
-  -- If either is visible, dismiss them and stay in insert mode
-  if cmp_visible or copilot_visible then
-    if cmp_visible then
-      cmp.abort()
-    end
-    if copilot_visible then
-      copilot.dismiss()
-    end
-    return -- Stay in insert mode
-  end
-
-  -- If neither was visible, execute normal Esc behavior (exit insert mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
-end
-
-vim.keymap.set("i", "<Esc>", enhanced_esc, { desc = "Enhanced Esc: dismiss CMP/Copilot and normal Esc" })
-
 -- LSP navigation keymaps
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, { desc = "Go to definition" })
