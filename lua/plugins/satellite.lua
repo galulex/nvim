@@ -71,5 +71,22 @@ return {
         }
       },
     }
+
+    -- Custom highlights - theme agnostic by extracting colors from standard highlight groups
+    local function get_hl(name, attr)
+      local hl = vim.api.nvim_get_hl(0, { name = name })
+      return hl[attr]
+    end
+
+    -- Extract colors from standard highlight groups
+    local fg = get_hl("Normal", "fg")
+    local yellow = get_hl("WarningMsg", "fg") or get_hl("DiagnosticWarn", "fg")
+    local gray = get_hl("Comment", "fg")
+
+    -- Satellite scrollbar highlights using transparent background
+    vim.api.nvim_set_hl(0, "SatelliteSearch", { fg = fg })
+    vim.api.nvim_set_hl(0, "SatelliteSearchCurrent", { fg = yellow })
+    vim.api.nvim_set_hl(0, "SatelliteBackground", { bg = vim.g.colors.transparent, blend = 100 })
+    vim.api.nvim_set_hl(0, "SatelliteBar", { bg = gray, blend = 90 })
   end,
 }

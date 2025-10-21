@@ -271,6 +271,17 @@ M.tabline = function()
 end
 
 local function hldefs()
+  -- Base TabLine highlights
+  local normal_fg = get_hl('Normal').fg
+  local comment_fg = get_hl('Comment').fg
+
+  api.nvim_set_hl(0, 'TabLineSelSeparator', { bg = 'NONE', fg = normal_fg })
+  api.nvim_set_hl(0, 'TabLineSeparator', { bg = 'NONE', fg = normal_fg })
+  api.nvim_set_hl(0, 'TabLineSel', { bg = 'NONE', fg = normal_fg, bold = true })
+  api.nvim_set_hl(0, 'TabLineFillTab', { bg = comment_fg, fg = get_hl('Normal').bg })
+  api.nvim_set_hl(0, 'TabLineBrand', { fg = '#f4468f', bold = true })
+
+  -- Diagnostic highlights for TabLine
   for _, hl_base in ipairs({ 'TabLineSel', 'TabLineFill' }) do
     local bg = get_hl(hl_base).bg
     for _, ty in ipairs({ 'Warn', 'Error', 'Info', 'Hint' }) do

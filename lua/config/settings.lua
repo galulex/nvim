@@ -1,4 +1,4 @@
-local global = vim.g
+local g = vim.g
 local o = vim.opt
 
 o.guifont = "Menlo:h17"
@@ -45,52 +45,52 @@ o.updatetime = 100 -- Sets update time to 100ms for faster completion
 o.tags = "./tmp/tags"
 o.foldenable = false
 
-global.noeb = "vb t_vb="                 -- No beeping
--- global.settags = "./config/nvim/"
+g.noeb = "vb t_vb="                 -- No beeping
+-- g.settags = "./config/nvim/"
 
-global.nobackup = true                     -- Don't make a backup before overwriting a file.
-global.nowritebackup = true                -- And again.
-global.noswapfile = true                   -- Disable swp files
+g.nobackup = true                     -- Don't make a backup before overwriting a file.
+g.nowritebackup = true                -- And again.
+g.noswapfile = true                   -- Disable swp files
 
 -- vim.diagnostic.config({ virtual_text = false }) -- Disables Diagnostic inline text
 
 if vim.g.neovide then
-  global.neovide_input_use_logo=true
-  global.neovide_opacity = 1
-  global.neovide_normal_opacity = 0.8
-  global.neovide_window_blurred = false
-  -- global.neovide_transparency = 0.8
-  global.neovide_floating_blur_amount_x = 10.0
-  global.neovide_floating_blur_amount_y = 10.0
-  global.neovide_floating_corner_radius = 0.5
-  global.neovide_scroll_animation_length = 0.1
-  global.neovide_cursor_vfx_mode = "pixiedust"
-  global.neovide_cursor_animation_length = 0.05
-  global.neovide_cursor_trail_size = 0.1
-  global.neovide_touch_deadzone = 6.0
-  global.neovide_touch_drag_timeout = 0.3
-  global.neovide_underline_automatic_scaling = false
-  global.neovide_refresh_rate = 120
-  global.neovide_refresh_rate_idle = 5
-  global.neovide_fullscreen = false
-  global.neovide_remember_window_size = true
-  global.neovide_cursor_animate_in_insert_mode = true
-  global.neovide_cursor_animate_command_line = true
-  global.neovide_floating_shadow = true
-  global.neovide_floating_z_height = 10
-  global.neovide_light_angle_degrees = 45
-  global.neovide_light_radius = 5
-  global.neovide_scroll_animation_far_lines = 1
-  global.neovide_theme = 'auto'
-  global.neovide_unlink_border_highlights = true
-  global.neovide_input_macos_option_key_is_meta = 'only_left'
-  global.neovide_padding_top=0
-  global.neovide_padding_left=0
-  global.neovide_padding_right=0
-  global.neovide_padding_bottom=0
-  global.startify_change_to_dir = 0
-  global.netrw_banner = 0
-  global.netrw_winsize = 25
+  g.neovide_input_use_logo=true
+  g.neovide_opacity = 1
+  g.neovide_normal_opacity = 0.8
+  g.neovide_window_blurred = false
+  -- g.neovide_transparency = 0.8
+  g.neovide_floating_blur_amount_x = 10.0
+  g.neovide_floating_blur_amount_y = 10.0
+  g.neovide_floating_corner_radius = 0.5
+  g.neovide_scroll_animation_length = 0.1
+  g.neovide_cursor_vfx_mode = "pixiedust"
+  g.neovide_cursor_animation_length = 0.05
+  g.neovide_cursor_trail_size = 0.1
+  g.neovide_touch_deadzone = 6.0
+  g.neovide_touch_drag_timeout = 0.3
+  g.neovide_underline_automatic_scaling = false
+  g.neovide_refresh_rate = 120
+  g.neovide_refresh_rate_idle = 5
+  g.neovide_fullscreen = false
+  g.neovide_remember_window_size = true
+  g.neovide_cursor_animate_in_insert_mode = true
+  g.neovide_cursor_animate_command_line = true
+  g.neovide_floating_shadow = true
+  g.neovide_floating_z_height = 10
+  g.neovide_light_angle_degrees = 45
+  g.neovide_light_radius = 5
+  g.neovide_scroll_animation_far_lines = 1
+  g.neovide_theme = 'auto'
+  g.neovide_unlink_border_highlights = true
+  g.neovide_input_macos_option_key_is_meta = 'only_left'
+  g.neovide_padding_top=0
+  g.neovide_padding_left=0
+  g.neovide_padding_right=0
+  g.neovide_padding_bottom=0
+  g.startify_change_to_dir = 0
+  g.netrw_banner = 0
+  g.netrw_winsize = 25
 end
 
 -- vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = [[%s/\s\+$//e]] })

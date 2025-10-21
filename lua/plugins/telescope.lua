@@ -108,5 +108,19 @@ return {
     vim.keymap.set("n", "<D-S-o>", "<Cmd>Telescope lsp_references prompt_title=🔍 prompt_prefix=🔍 preview_title=📄<CR>")
     vim.keymap.set("n", "<D-f>", "<Cmd>GrepCword<CR>")
     vim.keymap.set('v', '<D-f>', "\"zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ') . ' prompt_title=🔎 prompt_prefix=\"🔍 \" preview_title=📄'<cr>", { desc = 'Find by Grep (Visual)' })
+
+    -- Custom highlights - theme agnostic by extracting colors from standard highlight groups
+    local function get_hl(name, attr)
+      local hl = vim.api.nvim_get_hl(0, { name = name })
+      return hl[attr]
+    end
+
+    -- Extract colors from standard highlight groups
+    local insert_mode_fg = get_hl("String", "fg") or get_hl("Function", "fg")
+
+    -- Telescope window highlights using transparent background
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = vim.g.colors.transparent, blend = 70 })
+    vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = vim.g.colors.transparent, fg = insert_mode_fg, blend = 70 })
+    vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = vim.g.colors.transparent, bold = true, blend = 70 })
   end,
 }

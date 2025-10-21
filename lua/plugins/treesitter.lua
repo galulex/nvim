@@ -89,8 +89,12 @@ return {
 
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    
+
     -- ERB support
     vim.treesitter.language.register("embedded_template", "eruby")
+
+    -- TreesitterContext highlights using transparent background
+    vim.api.nvim_set_hl(0, "TreesitterContext", { bg = vim.g.colors.transparent, blend = 100 })
+    vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { bg = vim.g.colors.transparent, blend = 100 })
   end,
 }

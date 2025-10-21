@@ -331,5 +331,103 @@ return {
         },
       },
     }
+
+    -- Custom highlights - theme agnostic by extracting colors from standard highlight groups
+    local function get_hl(name, attr)
+      local hl = vim.api.nvim_get_hl(0, { name = name })
+      return hl[attr]
+    end
+
+    -- Extract colors from standard highlight groups
+    local green = get_hl("String", "fg") or get_hl("DiagnosticOk", "fg")
+    local blue = get_hl("Function", "fg") or get_hl("DiagnosticInfo", "fg")
+    local purple = get_hl("Keyword", "fg") or get_hl("Statement", "fg")
+    local red = get_hl("DiagnosticError", "fg") or get_hl("ErrorMsg", "fg")
+    local yellow = get_hl("Title", "fg") or get_hl("DiagnosticWarn", "fg")
+    local cyan = get_hl("Type", "fg") or get_hl("Identifier", "fg")
+    local orange = get_hl("Number", "fg") or get_hl("Constant", "fg")
+    local gray = get_hl("Comment", "fg")
+    local fg = get_hl("Normal", "fg")
+
+    -- Branch and remote
+    vim.api.nvim_set_hl(0, "NeogitBranch", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitRemote", { fg = blue, bg = "NONE" })
+
+    -- Hunk headers
+    vim.api.nvim_set_hl(0, "NeogitHunkHeader", { fg = purple, bold = true, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitHunkHeaderHighlight", { fg = purple, bold = true, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitHunkHeaderCursor", { fg = purple, bold = true, bg = "NONE" })
+
+    -- Diff highlights
+    vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitDiffAdd", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitDiffDelete", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitDiffHeaderCursor", { fg = fg, bg = "NONE" })
+
+    -- Section headers
+    vim.api.nvim_set_hl(0, "NeogitSectionHeader", { fg = yellow, bold = true, bg = "NONE" })
+
+    -- Change types
+    vim.api.nvim_set_hl(0, "NeogitChangeModified", { fg = orange, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeAdded", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeDeleted", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeRenamed", { fg = blue, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeCopied", { fg = cyan, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeUpdated", { fg = purple, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitChangeUntracked", { fg = red, bg = "NONE" })
+
+    -- Section names
+    vim.api.nvim_set_hl(0, "NeogitUntrackedfiles", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitUnstagedchanges", { fg = orange, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitStagedchanges", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitUnpulledchanges", { fg = blue, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitUnmergedchanges", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitRecentcommits", { fg = fg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitStashes", { fg = purple, bg = "NONE" })
+
+    -- Commit view
+    vim.api.nvim_set_hl(0, "NeogitCommitViewHeader", { fg = yellow, bold = true, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitFilePath", { fg = fg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitCommitViewDescription", { fg = fg, bg = "NONE" })
+
+    -- Popup menu
+    vim.api.nvim_set_hl(0, "NeogitPopupSectionTitle", { fg = yellow, bold = true, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupBranchName", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupBold", { fg = fg, bold = true, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupSwitchKey", { fg = blue, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupOptionKey", { fg = purple, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupConfigKey", { fg = orange, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupActionKey", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupSwitchEnabled", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitPopupSwitchDisabled", { fg = gray, bg = "NONE" })
+
+    -- Signatures
+    vim.api.nvim_set_hl(0, "NeogitSignatureGood", { fg = green, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitSignatureBad", { fg = red, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitSignatureMissing", { fg = orange, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitSignatureNone", { fg = gray, bg = "NONE" })
+
+    -- Tags
+    vim.api.nvim_set_hl(0, "NeogitTagName", { fg = yellow, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitTagDistance", { fg = orange, bg = "NONE" })
+
+    -- Cursor and selection (transparent)
+    vim.api.nvim_set_hl(0, "NeogitCursorLine", { bg = "NONE" })
+
+    -- Background (transparent)
+    vim.api.nvim_set_hl(0, "NeogitNormal", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitNotificationInfo", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitNotificationWarning", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NeogitNotificationError", { bg = "NONE" })
+
+    -- Override additional highlights after Neogit loads to ensure transparency
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitStatus",
+      callback = function()
+        vim.api.nvim_set_hl(0, "NeogitDiffContextHighlight", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "NeogitDiffContext", { fg = fg, bg = "NONE" })
+      end
+    })
   end
 }

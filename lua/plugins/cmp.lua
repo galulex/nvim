@@ -225,5 +225,28 @@ return {
         { name = 'rg', keyword_length = 3, max_item_count = 8, priority = 100 },
       })
     })
+
+    -- Custom highlights - theme agnostic by extracting colors from standard highlight groups
+    local function get_hl(name, attr)
+      local hl = vim.api.nvim_get_hl(0, { name = name })
+      return hl[attr]
+    end
+
+    -- Extract colors from standard highlight groups
+    local fg = get_hl("Normal", "fg")
+    local yellow = get_hl("Title", "fg") or get_hl("DiagnosticWarn", "fg")
+    local pink = get_hl("ErrorMsg", "fg") or get_hl("DiagnosticError", "fg")
+
+    -- Popup menu highlights using transparent background
+    vim.api.nvim_set_hl(0, "Pmenu", { bg = vim.g.colors.transparent, blend = 70 })
+    vim.api.nvim_set_hl(0, "PmenuSel", { bg = vim.g.colors.transparent, blend = 70, bold = true, fg = pink })
+    vim.api.nvim_set_hl(0, "PmenuSbar", { bg = vim.g.colors.transparent, blend = 70 })
+    vim.api.nvim_set_hl(0, "PmenuThumb", { bg = fg, blend = 90 })
+
+    -- CMP-specific highlights
+    vim.api.nvim_set_hl(0, "CmpNormal", { bg = vim.g.colors.transparent, blend = 70 })
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = yellow, bold = true })
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = yellow, bold = true })
+    vim.api.nvim_set_hl(0, "CmpSearch", { fg = yellow, bold = true })
   end
 }
