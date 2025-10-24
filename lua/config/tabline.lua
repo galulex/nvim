@@ -175,6 +175,45 @@ local function brand()
   return '        %#TabLineBrand#󱌮  '
 end
 
+--- Global character position counter for gradient
+local char_pos = 0
+
+--- @param char_offset integer
+--- @return string, integer
+local function get_gradient_hl(char_offset)
+  local color_idx = (char_offset % #gradient) + 1
+  local color = gradient[color_idx]
+  local hl_name = 'TabLineGradChar' .. char_offset
+
+  if not vim.g['tabline_grad_char_defined_' .. char_offset] then
+    local fg = get_hl('TabLine').fg or 0x000000
+    api.nvim_set_hl(0, hl_name, { fg = fg, bg = color })
+    vim.g['tabline_grad_char_defined_' .. char_offset] = true
+  end
+
+  return hl_name, color_idx
+end
+
+--- Apply gradient per character to a string
+--- @param text string
+--- @param start_pos integer
+--- @return string, integer
+local function apply_char_gradient(text, start_pos)
+  local result = {}
+  local pos = start_pos
+
+  -- Use vim.fn.strcharpart to properly handle UTF-8 characters
+  local char_count = fn.strchars(text)
+  for i = 0, char_count - 1 do
+    local char = fn.strcharpart(text, i, 1)
+    local hl_name = get_gradient_hl(pos)
+    result[#result + 1] = string.format('%%#%s#%s', hl_name, char)
+    pos = pos + 1
+  end
+
+  return table.concat(result), pos
+end
+
 --- @param index integer
 --- @param selected boolean
 --- @return string
@@ -190,56 +229,120 @@ local function cell(index, selected)
   if selected then
     -- Use default TabLineSel
     local hl = 'TabLineSel'
+    local count_prefix = ''
+
+    if #bufnrs > 1 then
+      count_prefix = string.format('%%#%s#%s ', hl, transform(tostring(#bufnrs)))
+    end
+
     local ret = string.format(
-      '%%#%s#%%%dT%s%s%s%s',
+      '%%#%s#%%%dT%s%s%s%s%s',
       hl,
       index,
+      count_prefix,
       devicon(bufnr, hl),
       title(bufnr),
       diags(bufnrs, hl),
       flags(bufnr)
     )
-
-    if #bufnrs > 1 then
-      ret = string.format('%s %%#%s#%s', ret, hl, transform(tostring(#bufnrs)))
-    end
 
     return ' %#TabLineSelSeparator#' .. ret .. '%T' .. '%#TabLineSelSeparator#  '
   else
-    -- Gradient background tab
-    local color = gradient[(index - 1) % #gradient + 1]
-    local hl = 'TabLineGrad' .. index
-    local sep_hl = 'TabLineSep' .. index
+    -- Gradient per character
+    local start_char_pos = char_pos
 
-    if not vim.g['tabline_grad_defined_' .. index] then
-      local fg = get_hl('TabLine').fg or 0x000000
-      api.nvim_set_hl(0, hl, { fg = fg, bg = color })
-      api.nvim_set_hl(0, sep_hl, { fg = color, bg = get_hl('TabLineFill').bg or 0x000000 })
-      vim.g['tabline_grad_defined_' .. index] = true
-    end
-
-    local ret = string.format(
-      '%%#%s#%%%sT%s%s%s',
-      hl,
-      index,
-      devicon(bufnr, hl),
-      title(bufnr),
-      diags(bufnrs, hl),
-      flags(bufnr)
-    )
+    -- Get components
+    local icon = devicon(bufnr, 'TabLine')
+    local tab_title = title(bufnr)
+    local tab_diags = diags(bufnrs, 'TabLine')
+    local tab_flags = flags(bufnr)
+    local count_str = ''
 
     if #bufnrs > 1 then
-      ret = string.format('%s %%#%s#%s ', ret, hl, transform(tostring(#bufnrs)))
+      count_str = transform(tostring(#bufnrs)) .. ' '
     end
 
-    return string.format('%%#%s#%s%%T%%#%s# ', sep_hl, ret, sep_hl)
+    -- Apply gradient to each part
+    local result_parts = {}
+    local current_pos = start_char_pos
+
+    -- Tab click target
+    result_parts[#result_parts + 1] = string.format('%%%dT', index)
+
+    -- Opening rounded separator
+    local sep_color_start = gradient[(current_pos % #gradient) + 1]
+    local sep_hl_left = 'TabLineRoundLeft' .. current_pos
+    if not vim.g['tabline_round_left_' .. current_pos] then
+      api.nvim_set_hl(0, sep_hl_left, { fg = sep_color_start, bg = get_hl('TabLineFill').bg or 0x000000 })
+      vim.g['tabline_round_left_' .. current_pos] = true
+    end
+    result_parts[#result_parts + 1] = string.format('%%#%s#', sep_hl_left)
+    current_pos = current_pos + 1
+
+    -- Apply gradient to count (moved to beginning)
+    if #count_str > 0 then
+      local count_grad, new_pos = apply_char_gradient(count_str, current_pos)
+      result_parts[#result_parts + 1] = count_grad
+      current_pos = new_pos
+    end
+
+    -- Apply gradient to icon (strip existing highlight codes)
+    local plain_icon = icon:gsub('%%#.-#', '')
+    if #plain_icon > 0 then
+      local icon_grad, new_pos = apply_char_gradient(plain_icon, current_pos)
+      result_parts[#result_parts + 1] = icon_grad
+      current_pos = new_pos
+    end
+
+    -- Apply gradient to title
+    if #tab_title > 0 then
+      local title_grad, new_pos = apply_char_gradient(tab_title, current_pos)
+      result_parts[#result_parts + 1] = title_grad
+      current_pos = new_pos
+    end
+
+    -- Apply gradient to diagnostics (strip existing highlight codes)
+    local plain_diags = tab_diags:gsub('%%#.-#', '')
+    if #plain_diags > 0 then
+      local diags_grad, new_pos = apply_char_gradient(plain_diags, current_pos)
+      result_parts[#result_parts + 1] = diags_grad
+      current_pos = new_pos
+    end
+
+    -- Apply gradient to flags
+    if #tab_flags > 0 then
+      local flags_grad, new_pos = apply_char_gradient(tab_flags, current_pos)
+      result_parts[#result_parts + 1] = flags_grad
+      current_pos = new_pos
+    end
+
+    -- Closing rounded separator
+    local sep_color_end = gradient[(current_pos % #gradient) + 1]
+    local sep_hl_right = 'TabLineRoundRight' .. current_pos
+    if not vim.g['tabline_round_right_' .. current_pos] then
+      api.nvim_set_hl(0, sep_hl_right, { fg = sep_color_end, bg = get_hl('TabLineFill').bg or 0x000000 })
+      vim.g['tabline_round_right_' .. current_pos] = true
+    end
+    result_parts[#result_parts + 1] = string.format('%%T%%#%s#', sep_hl_right)
+    current_pos = current_pos + 1
+
+    -- Update global character position
+    char_pos = current_pos
+
+    -- Space between tabs
+    result_parts[#result_parts + 1] = '%#TabLineFill# '
+
+    return table.concat(result_parts)
   end
 end
-  -- section_separators = { left = '󰘘', right = ''},
+  -- section_separators = { left = '󰘘', right = ''},
 
 local M = {}
 
 M.tabline = function()
+  -- Reset character position at the start of each render
+  char_pos = 0
+
   local parts = {} --- @type string[]
 
   local len = 0

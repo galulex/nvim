@@ -95,13 +95,8 @@ return {
 
     -- Noice split view highlights (message history)
     local get_hl = vim.api.nvim_get_hl
-    vim.api.nvim_set_hl(0, "NoiceSplit", {
-      fg = get_hl(0, { name = "Normal" }).fg,
-      bg = "NONE"
-    })
-    vim.api.nvim_set_hl(0, "NoiceSplitBorder", {
-      fg = get_hl(0, { name = "Function" }).fg,
-      bg = "NONE"
-    })
+    vim.api.nvim_set_hl(0, "NoiceSplit", { fg = get_hl(0, { name = "Normal" }).fg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NoiceSplitBorder", { fg = get_hl(0, { name = "Function" }).fg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = vim.g.colors.transparent, blend = 70 })
   end,
 }

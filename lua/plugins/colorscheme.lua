@@ -21,17 +21,13 @@ return {
 
     -- LuaLine custom highlights
     vim.cmd [[
-    hi LuaLineTimeMinutes guifg=#aff05b
-    hi LuaLineTimeSplit guifg=#b6e84e
-    hi LuaLineTimeHours guifg=#bfde43
-    hi LuaLineTimeIcon guifg=#c8d43a
-    hi LuaLineLinesTotal guifg=#d2c934
-    hi LuaLineLinesTotalIcon guifg=#dcbe30
-    hi LuaLineLinesY guifg=#e6b32e
-    hi LuaLineLinesYIcon guifg=#efa72f
-    hi LuaLineLinesX guifg=#f89b31
-    hi LuaLineLinesXIcon guifg=#ff9036
-    hi LuaLineLinesXPreIcon guifg=#ff843d
+    hi LuaLineLinesTotal guifg=#aff05b
+    hi LuaLineLinesTotalIcon guifg=#b6e84e
+    hi LuaLineLinesY guifg=#bfde43
+    hi LuaLineLinesYIcon guifg=#c8d43a
+    hi LuaLineLinesX guifg=#c8d43a
+    hi LuaLineLinesXIcon guifg=#d2c934
+    hi LuaLineLinesXPreIcon guifg=#d2c934
 
     ]]
 
