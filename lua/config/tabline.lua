@@ -1,10 +1,17 @@
 local api, fn = vim.api, vim.fn
 
 local gradient = {
-  '#f4468f', '#fd4a85', '#ff507a', '#ff566f', '#ff5e63', '#ff6658', '#ff704e', '#ff7a45', '#ff843d',
-  '#ff9036', '#f89b31', '#efa72f', '#e6b32e', '#dcbe30', '#d2c934', '#c8d43a', '#bfde43', '#b6e84e',
-  '#aff05b', '#b6e84e', '#bfde43', '#c8d43a', '#d2c934', '#dcbe30', '#e6b32e', '#efa72f', '#f89b31',
-  '#ff9036', '#ff843d', '#ff7a45', '#ff704e', '#ff6658', '#ff5e63', '#ff566f', '#ff507a', '#fd4a85',
+  -- Pink to orange (ascending)
+  '#f4468f', '#f8488a', '#fd4a85', '#fe4d80', '#ff507a', '#ff5375', '#ff566f', '#ff5a69', '#ff5e63',
+  '#ff625d', '#ff6658', '#ff6b53', '#ff704e', '#ff7549', '#ff7a45', '#ff7f41', '#ff843d', '#ff8a3a',
+  '#ff9036', '#f99533', '#f89b31', '#f3a130', '#efa72f', '#eaad2f', '#e6b32e', '#e1b92f', '#dcbe30',
+  '#d7c432', '#d2c934', '#cdcf37', '#c8d43a', '#c3d93e', '#bfde43', '#bae348', '#b6e84e', '#b0ec54',
+  '#aff05b',
+  -- Green to orange (descending - mirror)
+  '#b0ec54', '#b6e84e', '#bae348', '#bfde43', '#c3d93e', '#c8d43a', '#cdcf37', '#d2c934', '#d7c432',
+  '#dcbe30', '#e1b92f', '#e6b32e', '#eaad2f', '#efa72f', '#f3a130', '#f89b31', '#f99533', '#ff9036',
+  '#ff8a3a', '#ff843d', '#ff7f41', '#ff7a45', '#ff7549', '#ff704e', '#ff6b53', '#ff6658', '#ff625d',
+  '#ff5e63', '#ff5a69', '#ff566f', '#ff5375', '#ff507a', '#fe4d80', '#fd4a85', '#f8488a',
 }
 
 local filetypes = {
