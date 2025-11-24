@@ -157,6 +157,12 @@ return {
         Snacks.toggle.inlay_hints():map("<leader>uh")
         Snacks.toggle.indent():map("<leader>ug")
         Snacks.toggle.dim():map("<leader>uD")
+
+        -- Snacks Picker highlights
+        vim.api.nvim_set_hl(0, "SnacksPicker", { bg = vim.g.colors.transparent, blend = 30 })
+        vim.api.nvim_set_hl(0, "SnacksPickerBorder", { bg = vim.g.colors.transparent, blend = 30 })
+        vim.api.nvim_set_hl(0, "SnacksPickerInputTitle", { bg = vim.g.colors.transparent, blend = 30 })
+
       end,
     })
   end,
