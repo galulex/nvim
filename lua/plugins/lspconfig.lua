@@ -168,8 +168,8 @@ return {
       end,
     })
 
-    -- Biome autoformatting on save
-    vim.api.nvim_create_autocmd("BufWritePre", {
+    -- Biome autoformatting and lint fixes on save using CLI
+    vim.api.nvim_create_autocmd("BufWritePost", {
       pattern = {
         "*.js",
         "*.jsx",
@@ -182,16 +182,18 @@ return {
         "*.svelte"
       },
       callback = function()
-        local clients = vim.lsp.get_clients({ name = "biome" })
-        if #clients > 0 then
-          vim.lsp.buf.format({
-            name = "biome",
-            options = {
-              indentStyle = "space",
-              indentWidth = 2
-            }
-          })
-        end
+        local filepath = vim.fn.expand("%:p")
+        local bufnr = vim.api.nvim_get_current_buf()
+        -- Run biome check with --write to apply safe fixes and format
+        vim.fn.system({
+          "biome",
+          "check",
+          "--write",
+          "--unsafe",
+          filepath
+        })
+        -- Reload the buffer to get the changes (without triggering another save)
+        vim.cmd("checktime")
       end,
     })
   end
