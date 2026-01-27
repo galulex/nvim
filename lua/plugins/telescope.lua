@@ -5,6 +5,7 @@ local ignore_filetypes_list = {
 
 return {
   "nvim-telescope/telescope.nvim",
+  enabled = false, -- Disabled: migrated to Snacks picker
   branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",

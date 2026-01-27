@@ -1,3 +1,9 @@
+-- File patterns to ignore (matching Telescope config)
+local ignore_patterns = {
+  "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.svg", "%.log", "tags",
+  "%.pdf", "%.odt", "%.ico", "vcr/", "node_modules/", "storage/", "tmp/", "fixtures/"
+}
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -6,14 +12,84 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = false },
-    explorer = { enabled = true },
+    explorer = {
+      enabled = false,
+      layout = {
+        preset = "sidebar",
+        width = 40,
+      },
+    },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      -- Default layout for most pickers (Telescope-style)
+      layout = {
+        preset = "telescope",
+        layout = {
+          width = 0.9,
+          height = 0.8,
+        },
+      },
+      win = {
+        input = {
+          keys = {
+            ["<C-k>"] = { "list_up", mode = { "i", "n" } },
+            ["<C-j>"] = { "list_down", mode = { "i", "n" } },
+            ["<C-q>"] = { "qflist_all", mode = { "i", "n" } },
+            ["<C-a>"] = { "qflist", mode = { "i", "n" } },
+            ["<C-x>"] = { "edit_split", mode = { "i", "n" } },
+            ["<C-v>"] = { "edit_vsplit", mode = { "i", "n" } },
+            ["<C-t>"] = { "edit_tab", mode = { "i", "n" } },
+            ["<c-d>"] = { "bufdelete", mode = { "i", "n" } },
+          },
+          wo = {
+            winhighlight = "Normal:SnacksNormal,NormalFloat:SnacksNormal",
+          },
+        },
+        list = {
+          wo = {
+            winhighlight = "Normal:SnacksNormal,NormalFloat:SnacksNormal",
+          },
+        },
+        preview = {
+          wo = {
+            winhighlight = "Normal:SnacksNormal,NormalFloat:SnacksNormal",
+          },
+        },
+      },
+      sources = {
+        files = {
+          hidden = true,
+          exclude = ignore_patterns,
+        },
+        grep = {
+          hidden = true,
+          exclude = ignore_patterns,
+        },
+        buffers = {
+          sort_lastused = true,
+        },
+        explorer = {
+          layout = "sidebar",
+        },
+      },
+      icons = {
+        ui = {
+          selected = "👉🏻",
+          unselected = "  ",
+        },
+      },
+      formatters = {
+        file = {
+          truncate = 80,
+        },
+      },
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
@@ -22,17 +98,26 @@ return {
     styles = {
       notification = {
         -- wo = { wrap = true } -- Wrap notifications
-      }
+      },
     }
   },
   keys = {
+    -- Telescope-style keymaps (matching original Telescope config)
+    { "<S-Tab>", function() Snacks.picker.recent() end, desc = "Recent Files" },
+    { "<D-o>", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<D-S-o>", function() Snacks.picker.lsp_references() end, desc = "LSP References" },
+    { "<D-f>", function() Snacks.picker.grep_word() end, desc = "Grep Current Word" },
+    { "<D-f>", function() Snacks.picker.grep_word() end, desc = "Grep Selection", mode = "x" },
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    { "<leader>e", function() Snacks.picker.explorer({
+      layout = { preset = "sidebar", width = 30, preview = false },
+    }) end, desc = "File Explorer" },
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
