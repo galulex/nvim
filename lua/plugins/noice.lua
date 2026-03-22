@@ -12,6 +12,22 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "^\".*\" %d+ lines",
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "No lines in buffer",
+          },
+          opts = { skip = true },
+        },
       },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

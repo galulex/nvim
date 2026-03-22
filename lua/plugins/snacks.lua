@@ -107,8 +107,11 @@ return {
     { "<D-o>", function() Snacks.picker.files() end, desc = "Find Files" },
     { "<C-p>", function() Snacks.picker.files() end, desc = "Find Files" },
     { "<D-S-o>", function() Snacks.picker.lsp_references() end, desc = "LSP References" },
-    { "<D-f>", function() Snacks.picker.grep_word() end, desc = "Grep Current Word" },
-    { "<D-f>", function() Snacks.picker.grep_word() end, desc = "Grep Selection", mode = "x" },
+    { "<D-f>", function() Snacks.picker.grep({ search = vim.fn.expand("<cword>") }) end, desc = "Grep Current Word" },
+    { "<D-f>", function()
+      local search = table.concat(vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos(".")), "\n")
+      Snacks.picker.grep({ search = search })
+    end, desc = "Grep Selection", mode = "x" },
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },

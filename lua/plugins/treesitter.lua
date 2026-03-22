@@ -20,16 +20,15 @@ return {
     })
 
     treesitter.setup({
-      sync_install = true,
-      ignore_install = {""},
+      sync_install = false,
       auto_install = true,
       modules = {},
-      highlight = { 
-        enable = true, 
+      highlight = {
+        enable = true,
         -- Ruby may need vim regex for proper indentation
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { 
+      indent = {
         enable = true,
         -- Disable for Ruby due to indentation issues
         disable = { 'ruby' }
@@ -52,6 +51,8 @@ return {
         "dockerfile",
         "gitignore",
         "ruby",
+        "regex",
+        "sql",
         "embedded_template", -- For ERB
       },
       incremental_selection = {
@@ -63,23 +64,13 @@ return {
           node_decremental = "<bs>",
         },
       },
-      rainbow = {
-        enable = true,
-        disable = { "html" },
-        extended_mode = false,
-        max_file_lines = 1000,
-      },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
     })
 
 
     require'treesitter-context'.setup{
       enable = true,
       max_lines = 7, -- How many lines the window can be before it is disabled
-      trim_scope = true, -- Which scope to trim to
+      trim_scope = "outer", -- Which scope to trim to
       min_window_height = 0, -- Minimum editor window height to enable context
       line_numbers = true, -- Use line numbers
       multiline_threshold = 20, -- Maximum number of lines to show in the context window

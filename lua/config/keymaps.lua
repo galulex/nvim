@@ -72,7 +72,31 @@ vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementa
 
 -- Zoom keymaps for Neovide
 if vim.g.neovide then
-  vim.api.nvim_set_keymap("n", "<D-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  2.0)<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<D-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  0.1)<CR>", { silent = true })
+  vim.api.nvim_set_keymap(
+    "n",
+    "<D-=>",
+    ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  2.0)<CR>",
+    { silent = true }
+  )
+  vim.api.nvim_set_keymap(
+    "n",
+    "<D-->",
+    ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  0.1)<CR>",
+    { silent = true }
+  )
   vim.api.nvim_set_keymap("n", "<D-0>", ":lua vim.g.neovide_scale_factor = 1.0<CR>", { silent = true })
+
+-- Slide Tab navigation. Like in ITerm2
+  local slide_tabs = require("config.slide_tabs")
+  local feedkey = function(key)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "n", false)
+  end
+  vim.keymap.set({ "n", "i", "v" }, "<ScrollWheelRight>",
+    function() slide_tabs.swipe_tab("right") end, { silent = true })
+  vim.keymap.set({ "n", "i", "v" }, "<ScrollWheelLeft>",
+    function() slide_tabs.swipe_tab("left") end, { silent = true })
+  vim.keymap.set({ "n", "i", "v" }, "<ScrollWheelUp>",
+    function() slide_tabs.reset_swipe(); feedkey("<ScrollWheelUp>") end, { silent = true })
+  vim.keymap.set({ "n", "i", "v" }, "<ScrollWheelDown>",
+    function() slide_tabs.reset_swipe(); feedkey("<ScrollWheelDown>") end, { silent = true })
 end
