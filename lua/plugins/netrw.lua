@@ -11,5 +11,12 @@ return {
       },
       use_devicons = true,
     })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "netrw",
+      callback = function()
+        vim.keymap.set("n", "<BS>", "-", { remap = true, buffer = true })
+      end,
+    })
   end,
 }

@@ -26,6 +26,10 @@ vim.keymap.set({ "n", "i" }, "<C-S-tab>", "<Cmd>tabprevious<CR>")
 vim.keymap.set({ "n", "i" }, "<D-]>", "<Cmd>tabnext<CR>")
 vim.keymap.set({ "n", "i" }, "<D-Down>", "<Cmd>tabnext<CR>")
 vim.keymap.set({ "n", "i" }, "<C-tab>", "<Cmd>tabnext<CR>")
+
+for i = 1, 9 do
+  vim.keymap.set({ "n", "i", "v" }, "<D-" .. i .. ">", "<Cmd>tabn " .. i .. "<CR>")
+end
 vim.keymap.set({ "n", "i" }, "<D-w>", "<Cmd>q!<CR>")
 vim.keymap.set({ "n", "i" }, "<C-e>", "<Cmd>q!<CR>")
 
