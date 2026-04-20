@@ -38,7 +38,7 @@ o.mousescroll = "ver:1,hor:0"           -- Disable horizontal scroll
 
 -- Commands
 o.inccommand = "split"                  -- Live preview for :substitute
-o.shortmess = "filmnrxtTI"              -- Disable intro message
+o.shortmess:append("rmI")               -- Add [RO]/[+] short forms, no intro
 o.ttimeoutlen = 0                       -- Key code timeout
 
 -- Files

@@ -185,34 +185,7 @@ return {
       }),
     })
 
-    -- Ruby-specific configuration
-    cmp.setup.filetype('ruby', {
-      sources = cmp.config.sources({
-        -- { name = "copilot", priority = 1100 },
-        { name = 'nvim_lsp' },
-        { name = 'rails-fixture-names' },
-        { name = 'rails-fixture-types' },
-        { name = 'luasnip' },
-      }, {
-        { name = 'buffer', keyword_length = 2 },
-        { name = 'path' },
-        { name = 'rg', keyword_length = 3, max_item_count = 8 },
-      })
-    })
-
-    -- JavaScript/TypeScript configuration
-    cmp.setup.filetype({'javascript', 'typescript', 'javascriptreact', 'typescriptreact'}, {
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp', priority = 1000 }, -- TSServer, ESLint, etc.
-        { name = 'luasnip', priority = 750 },
-      }, {
-        { name = 'buffer', keyword_length = 2, priority = 500 },
-        { name = 'path', priority = 300 },
-        { name = 'rg', keyword_length = 3, max_item_count = 10, priority = 100 },
-      })
-    })
-
-    -- ERB/Slim view files configuration
+    -- ERB/Slim view files: bump nvim-html-css priority for view completions
     cmp.setup.filetype({'eruby', 'slim'}, {
       sources = cmp.config.sources({
         -- { name = "copilot", priority = 1100 },

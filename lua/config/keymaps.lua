@@ -33,8 +33,7 @@ end
 vim.keymap.set({ "n", "i" }, "<D-w>", "<Cmd>q!<CR>")
 vim.keymap.set({ "n", "i" }, "<C-e>", "<Cmd>q!<CR>")
 
-vim.keymap.set("n", "<S-w>", "<Cmd>e %h<CR>")
-vim.keymap.set('n', "<S-w>", ":e %:h<CR>")
+vim.keymap.set("n", "<S-w>", ":e %:h<CR>")
 
 vim.keymap.set({ "n", "v" }, "<M-Right>", "e")
 vim.keymap.set({ "n", "v" }, "<M-Left>", "b")
@@ -68,11 +67,8 @@ end
 vim.keymap.set("i", "<Tab>", copilot_tab_fallback, { desc = "Accept Copilot or regular Tab" })
 
 -- LSP navigation keymaps
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<C-}>", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 
 -- Zoom keymaps for Neovide
 if vim.g.neovide then
